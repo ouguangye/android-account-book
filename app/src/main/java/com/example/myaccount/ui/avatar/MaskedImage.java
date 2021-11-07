@@ -1,4 +1,4 @@
-package com.example.myaccount.ui;
+package com.example.myaccount.ui.avatar;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -10,8 +10,12 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Xfermode;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.widget.ImageView;
 
-public abstract class MaskedImage extends androidx.appcompat.widget.AppCompatImageView {
+
+@SuppressLint("AppCompatCustomView")
+
+public abstract class MaskedImage extends ImageView {
     private static final Xfermode MASK_XFERMODE;
     private Bitmap mask;
     private Paint paint;

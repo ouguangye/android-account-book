@@ -1,4 +1,4 @@
-package com.example.myaccount.ui;
+package com.example.myaccount.ui.avatar;
 
 import android.content.Context;
 import android.graphics.Bitmap;
