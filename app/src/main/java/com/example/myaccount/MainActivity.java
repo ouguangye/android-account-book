@@ -39,8 +39,7 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-        //CircularImage avatar = (CircularImage) findViewById(R.id.avatar);
-        //avatar.setImageResource(R.drawable.avatar);
+
     }
 
     @Override
