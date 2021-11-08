@@ -30,29 +30,42 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:popupTheme="@style/Theme.MyAccount.PopupOverlay"
                 app:layout_collapseMode="pin"
-                >
+                app:popupTheme="@style/Theme.MyAccount.PopupOverlay">
+
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    >
+                    android:orientation="horizontal">
+
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_home_address"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:layout_marginLeft="100dp"
                         android:gravity="center"
                         android:text="2021.11"
                         android:textColor="@color/white"
                         android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:layout_marginLeft="100dp"
-                        />
+                        android:textStyle="bold" />
+
                     <Spinner
                         android:id="@+id/spinner"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="match_parent" />
+
+                    <ImageView
+                        android:layout_width="23dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="45dp"
+                        android:clickable="true"
+                        android:src="@drawable/calendar" />
+                    <ImageView
+                        android:layout_width="23dp"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:layout_marginLeft="19dp"
+                        android:src="@drawable/statistics_white"
                         />
                 </androidx.appcompat.widget.LinearLayoutCompat>
             </androidx.appcompat.widget.Toolbar>
