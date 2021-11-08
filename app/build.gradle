@@ -43,4 +43,5 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'com.github.siyamed:android-shape-imageview:0.9.+@aar'
+    implementation 'com.github.BlackBoxVision:material-calendar-view:v1.5.8'
 }

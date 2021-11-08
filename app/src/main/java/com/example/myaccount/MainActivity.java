@@ -1,7 +1,9 @@
 package com.example.myaccount;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -39,6 +41,12 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        ImageView calendar = this.findViewById(R.id.calendar);
+        calendar.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this,CalendarActivity.class);
+            startActivity(intent);
+        });
 
     }
 

@@ -55,6 +55,7 @@
                         android:layout_height="match_parent" />
 
                     <ImageView
+                        android:id="@+id/calendar"
                         android:layout_width="23dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="45dp"
