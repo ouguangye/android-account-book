@@ -56,48 +56,49 @@
                         />
                 </androidx.appcompat.widget.LinearLayoutCompat>
             </androidx.appcompat.widget.Toolbar>
+
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="274dp"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="60dp"
                 android:layout_marginLeft="12dp"
-                >
+                android:layout_marginTop="60dp"
+                android:orientation="vertical">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="月支出"
                     android:textColor="@color/white"
-                    android:textSize="24sp"
-                    />
+                    android:textSize="24sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="16.00"
                     android:textColor="@color/white"
-                    android:textStyle="bold"
                     android:textSize="34sp"
-                    />
+                    android:textStyle="bold" />
+
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
+                    android:layout_width="247dp"
+                    android:layout_height="40dp"
                     android:layout_marginTop="4dp"
-                    >
+                    android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:textColor="@color/white"
-                        android:text="月收入0.00"
-                        android:textSize="17sp"
                         android:layout_marginRight="34dp"
-                        />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:text="月收入0.00"
                         android:textColor="@color/white"
+                        android:textSize="17sp" />
+
+                    <TextView
+                        android:layout_width="153dp"
+                        android:layout_height="match_parent"
                         android:text="本月结余-16.00"
-                        android:textSize="17sp"/>
+                        android:textColor="@color/white"
+                        android:textSize="17sp" />
 
                 </LinearLayout>
             </LinearLayout>
