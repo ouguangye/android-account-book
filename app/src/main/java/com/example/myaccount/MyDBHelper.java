@@ -30,7 +30,5 @@ public class MyDBHelper extends SQLiteOpenHelper {
     protected void createTable(SQLiteDatabase db,String s){
         String strSQL = "create table " + s + " (sid integer primary key autoincrement, date text, type text, amount float)";
         db.execSQL(strSQL);
-        String sql = "insert into "+s+" values(1,'2021.11','buy',23.11)";
-        db.execSQL(sql);
     }
 }

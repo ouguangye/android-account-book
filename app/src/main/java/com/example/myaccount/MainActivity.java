@@ -12,6 +12,8 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.myaccount.dataBase.Account;
+import com.example.myaccount.dataBase.AccountDataBase;
 import com.example.myaccount.databinding.ActivityMainBinding;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
@@ -48,7 +50,9 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this,CalendarActivity.class);
             startActivity(intent);
         });
-        dbAccess = new DBAccess(new MyDBHelper(MainActivity.this));
+        //dbAccess = new DBAccess(new MyDBHelper(MainActivity.this));
+        Account account = new Account("2021.11.01","+","eat",32.14);
+                AccountDataBase.getInstance(MainActivity.this).getAccountDao().insertAccount(account);
     }
 
     @Override
