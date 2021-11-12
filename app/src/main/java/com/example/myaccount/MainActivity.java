@@ -18,6 +18,8 @@ import com.example.myaccount.databinding.ActivityMainBinding;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
+import org.litepal.tablemanager.Connector;
+
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
@@ -50,9 +52,17 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this,CalendarActivity.class);
             startActivity(intent);
         });
-        dbAccess = new DBAccess(new MyDBHelper(MainActivity.this));
+
+        //create db at normal type
+        //dbAccess = new DBAccess(new MyDBHelper(MainActivity.this));
+
+        //create db at room type
         //Account account = new Account("2021.11.01","+","eat",32.14);
         //AccountDataBase.getInstance(MainActivity.this).getAccountDao().insertAccount(account);
+
+        // create db at litepal type
+        Connector.getDatabase();
+
     }
 
     @Override
