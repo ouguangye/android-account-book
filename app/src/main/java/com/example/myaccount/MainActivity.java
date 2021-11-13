@@ -3,6 +3,7 @@ package com.example.myaccount;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.myaccount.dataBase.nomal.DBAccess;
 import com.example.myaccount.dataBase.nomal.MyDBHelper;
 import com.example.myaccount.databinding.ActivityMainBinding;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -50,6 +52,12 @@ public class MainActivity extends AppCompatActivity {
         ImageView calendar = this.findViewById(R.id.calendar);
         calendar.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this,CalendarActivity.class);
+            startActivity(intent);
+        });
+
+        FloatingActionButton add_button =  findViewById(R.id.fab);
+        add_button.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this,AddActivity.class);
             startActivity(intent);
         });
 
