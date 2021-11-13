@@ -7,7 +7,44 @@
     tools:context=".CalendarActivity"
     android:background="@color/darkgray"
     android:orientation="vertical"
+
     >
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_collapseMode="pin"
+        android:background="@color/blue_200"
+        app:contentScrim="@color/white"
+        >
+    <ImageView
+        android:id="@+id/back_to_main"
+        android:clickable="true"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:src="@drawable/left_arrow"
+        />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_home_address"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="120dp"
+            android:gravity="center"
+            android:text="2021.11"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textColor="@color/white"
+
+            />
+    </androidx.appcompat.widget.Toolbar>
+
 
     <androidx.cardview.widget.CardView
         android:layout_width="345dp"

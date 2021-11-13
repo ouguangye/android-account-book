@@ -10,9 +10,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyAccount">
-
         <activity
             android:name=".CalendarActivity"
+            android:theme="@style/Theme.MyAccount.NoActionBar"
             android:exported="true" />
         <activity
             android:name=".MainActivity"

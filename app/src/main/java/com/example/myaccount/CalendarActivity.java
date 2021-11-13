@@ -1,6 +1,9 @@
 package com.example.myaccount;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,8 +16,16 @@ public class CalendarActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
-        CalendarView calendarView = (CalendarView) findViewById(R.id.calendar_view);
-        //calendarView.setWeekDayLabels(new String[]{"日", "一", "二", "三", "四", "五", "六"});
+
+        ImageView back_button = findViewById(R.id.back_to_main);
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CalendarActivity.this,MainActivity.class);
+                startActivity(intent);
+            };
+
+        });
 
     }
 
