@@ -58,7 +58,7 @@ public class AddActivity extends AppCompatActivity {
             public Fragment createFragment(int position) {
                 //FragmentStateAdapter内部自己会管理已实例化的fragment对象。
                 // 所以不需要考虑复用的问题
-                return TestFragment.newInstance(tabs[position]);
+                return AccountFragment.newInstance(position);
             }
 
             @Override
@@ -66,6 +66,7 @@ public class AddActivity extends AppCompatActivity {
                 return tabs.length;
             }
         });
+
         //viewPager 页面切换监听监听
         viewPager2.registerOnPageChangeCallback(changeCallback);
 
