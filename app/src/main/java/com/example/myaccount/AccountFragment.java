@@ -4,11 +4,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,9 +41,11 @@ public class AccountFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initItems();
-        AccountAdapter adapter = new AccountAdapter(getActivity(),R.layout.item,itemList);
-        ListView listView = getActivity().findViewById(R.id.list_view);
-        listView.setAdapter(adapter);
+        RecyclerView recyclerView = getActivity().findViewById(R.id.list_view);
+        GridLayoutManager gll = new GridLayoutManager(getActivity(), 5);
+        recyclerView.setLayoutManager(gll);
+        ItemAdapter itemAdapter = new ItemAdapter(itemList);
+        recyclerView.setAdapter(itemAdapter);
     }
 
 
