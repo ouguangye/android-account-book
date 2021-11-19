@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+    <resources>
+
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
@@ -8,10 +9,6 @@
     <color name="darkgray">#e2e1e6</color>
     <color name="blue_200">#3498db</color>
     <color name="blue_700">#519BF4</color>
-
-
-    <?xml version="1.0" encoding="utf-8"?>
-    <resources>
         <!--<color name="colorPrimary">#008577</color>-->
         <!--<color name="colorPrimaryDark">#00574B</color>-->
         <!--<color name="colorAccent">#D81B60</color>-->
@@ -100,4 +97,3 @@
 
     </resources>
 
-</resources>
