@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <RelativeLayout
+        android:id="@+id/layout"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:gravity="center_vertical"
+        android:background="?attr/colorPrimary">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_collapseMode="pin"
+            android:background="@color/blue_200"
+            app:contentScrim="@color/white"
+            >
+            <ImageView
+                android:id="@+id/back_to_main"
+                android:clickable="true"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:src="@drawable/left_arrow"
+                />
+            <com.google.android.material.tabs.TabLayout
+                android:layout_marginLeft="100dp"
+                android:background="@color/blue_200"
+                android:id="@+id/tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                app:tabGravity="fill"
+                app:tabIndicatorColor="#ffffff"
+                app:tabIndicatorFullWidth="false"
+                app:tabIndicatorHeight="2dp"
+                app:tabMode="scrollable"
+                app:tabSelectedTextColor="#ffffff"
+                app:tabTextColor="#FFFFFF"
+                app:tabUnboundedRipple="true" />
+
+        </androidx.appcompat.widget.Toolbar>
+    </RelativeLayout>
+
+    <!--
+        tabIndicatorColor  指示器颜色
+        tabIndicatorHeight 指示器高度
+        tabIndicatorFullWidth  设置为false 则指示器跟文本宽度一致
+        tabUnboundedRipple 设置为true点击时会有一个水波纹效果
+        tabGravity 可设置center或fill；center指的是居中显示，fill指的是沾满全屏。
+        tabMode 可设置fixed和 scrollable；fixed：指的是固定tab；scrollable指的是tab可滑动。
+        tabTextColor tab文字颜色
+        tabSelectedTextColor 选中时的tab颜色
+
+    -->
+
+    <!-- ViewPager2内部通过RecyclerView
+         所以需要通过orientation来设置页面切换方向-->
+
+    <RelativeLayout
+        android:layout_below="@+id/layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        >
+        
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="15dp"
+            android:layout_below="@+id/view_pager"
+            android:layout_marginTop="10dp">
+
+            <LinearLayout
+                android:id="@+id/layout_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:orientation="horizontal" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/select_layout"
+        android:layout_marginBottom="17dp">
+
+        <EditText
+            android:id="@+id/item_tb_type_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:paddingLeft="15dp"
+            android:paddingRight="10dp"
+            android:textColor="#333333"
+            android:textSize="26sp"
+            android:hint="请输入关键词"
+            android:editable="false"
+            >
+            <requestFocus/>
+        </EditText>
+
+        <TextView
+            android:id="@+id/tb_note_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/tb_note_clear"
+            android:maxLength="11"
+            android:text="0.00"
+            android:textColor="#000000"
+            android:textSize="28sp" />
+
+        <ImageView
+            android:id="@+id/tb_note_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:onClick="onClick"
+            android:paddingLeft="10dp"
+            android:paddingRight="15dp"
+            android:src="@mipmap/ic_tb_note_delete" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/select_layout"
+        android:layout_above="@+id/view_line"
+        android:layout_marginBottom="15dp"
+        android:orientation="horizontal"
+        android:background="@drawable/shape_tb_calc"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tb_note_cash"
+            android:text="现金"
+            android:background="@drawable/shape_tb_cash"
+            android:textSize="15sp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="7dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="7dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/tb_note_date"
+            android:background="@drawable/shape_tb_cash"
+            android:text="2021.11.19"
+            android:textSize="15sp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="7dp"
+            android:layout_marginTop="7dp"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <RelativeLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/tb_note_remark"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:paddingLeft="10dp"
+                android:paddingTop="5dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="5dp"
+                android:src="@mipmap/ic_tb_note_remark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view_line"
+        android:layout_above="@+id/bottom"
+        style="@style/horizontal_decoration_style"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#8c8c8c"/>
+
+    <LinearLayout
+        android:id="@+id/bottom"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tb_calc_num_1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_radius_click"
+                android:gravity="center"
+                android:onClick="onClick"
+                android:text="1"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+
+            <View
+                style="@style/horizontal_decoration_style"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="#8c8c8c" />
+
+            <TextView
+                android:id="@+id/tb_calc_num_4"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_radius_click"
+                android:gravity="center"
+                android:onClick="onClick"
+                android:text="4"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+
+            <View
+                style="@style/horizontal_decoration_style"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="#8c8c8c" />
+
+            <TextView
+                android:id="@+id/tb_calc_num_7"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_radius_click"
+                android:gravity="center"
+                android:onClick="onClick"
+                android:text="7"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+
+            <View
+                style="@style/horizontal_decoration_style"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="#8c8c8c" />
+
+            <TextView
+                android:id="@+id/tb_calc_num_dot"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_radius_click"
+                android:gravity="center"
+                android:onClick="onClick"
+                android:text="."
+                android:textColor="#000000"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <View
+            style="@style/vertical_decoration_style"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="#8c8c8c" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tb_calc_num_2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_radius_click"
+                    android:gravity="center"
+                    android:onClick="onClick"
+                    android:text="2"
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
+
+                <View
+                    style="@style/vertical_decoration_style"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="#8c8c8c" />
+
+                <TextView
+                    android:id="@+id/tb_calc_num_3"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_radius_click"
+                    android:gravity="center"
+                    android:onClick="onClick"
+                    android:text="3"
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <View
+                style="@style/horizontal_decoration_style"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="#8c8c8c" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tb_calc_num_5"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_radius_click"
+                    android:gravity="center"
+                    android:onClick="onClick"
+                    android:text="5"
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
+
+                <View
+                    style="@style/vertical_decoration_style"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="#8c8c8c" />
+
+                <TextView
+                    android:id="@+id/tb_calc_num_6"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_radius_click"
+                    android:gravity="center"
+                    android:onClick="onClick"
+                    android:text="6"
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <View
+                style="@style/horizontal_decoration_style"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="#8c8c8c" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tb_calc_num_8"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_radius_click"
+                    android:gravity="center"
+                    android:onClick="onClick"
+                    android:text="8"
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
+
+                <View
+                    style="@style/vertical_decoration_style"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="#8c8c8c" />
+
+                <TextView
+                    android:id="@+id/tb_calc_num_9"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_radius_click"
+                    android:gravity="center"
+                    android:onClick="onClick"
+                    android:text="9"
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <View
+                style="@style/horizontal_decoration_style"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="#8c8c8c" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tb_calc_num_0"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_radius_click"
+                    android:gravity="center"
+                    android:onClick="onClick"
+                    android:text="0"
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            style="@style/vertical_decoration_style"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="#8c8c8c" />
+
+        <View
+            style="@style/vertical_decoration_style"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="#8c8c8c" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/tb_calc_num_del"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:onClick="onClick">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@mipmap/ic_tb_calc_del" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tb_calc_num_done"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="?attr/colorPrimary"
+                android:gravity="center"
+                android:onClick="onClick"
+                android:text="确定"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>
