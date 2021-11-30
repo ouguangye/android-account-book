@@ -107,6 +107,7 @@
             android:textColor="#333333"
             android:textSize="26sp"
             android:hint="请输入关键词"
+            android:editable="false"
             >
             <requestFocus/>
         </EditText>
