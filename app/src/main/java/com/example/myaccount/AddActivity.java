@@ -5,6 +5,7 @@ import static com.example.myaccount.DateUtils.FORMAT_M;
 import static com.example.myaccount.DateUtils.FORMAT_Y;
 import static com.example.myaccount.DateUtils.FORMAT_YMD;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -21,6 +22,9 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.afollestad.materialdialogs.GravityEnum;
+import com.afollestad.materialdialogs.MaterialDialog;
+
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -28,7 +32,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddActivity extends AppCompatActivity {
+public class AddActivity extends AppCompatActivity implements View.OnClickListener{
 
     private TabLayout tabLayout;
     private ViewPager2 viewPager2;
@@ -51,6 +55,7 @@ public class AddActivity extends AppCompatActivity {
     private ImageView remarkIv;   //
     private ViewPager2 viewpagerItem;
     private LinearLayout layoutIcon;
+    private Context mContext;
 
     //计算器
     protected boolean isDot;
@@ -93,12 +98,7 @@ public class AddActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
 
-        //页面跳转
-        ImageView back_button = findViewById(R.id.back_to_main);
-        back_button.setOnClickListener(view -> {
-            Intent intent = new Intent(AddActivity.this,MainActivity.class);
-            startActivity(intent);
-        });
+
 
         tabLayout = findViewById(R.id.tab_layout);
         viewPager2 = findViewById(R.id.viewpager_item);
@@ -212,6 +212,141 @@ public class AddActivity extends AppCompatActivity {
             num = money.split("\\.")[0];
             //截取小数部分
             dotNum = "." + money.split("\\.")[1];
+        }
+    }
+
+    protected void initClick() {
+        incomeTv.setOnClickListener(this);
+        outcomeTv.setOnClickListener(this);
+        cashTv.setOnClickListener(this);
+        dateTv.setOnClickListener(this);
+        remarkIv.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.back_to_main:
+                Intent intent = new Intent(AddActivity.this,MainActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.tb_note_cash://现金
+                showPayinfoSelector();
+                break;
+            case R.id.tb_note_date://日期
+                //showTimeSelector();
+                break;
+            case R.id.tb_note_remark://备注
+                //showContentDialog();
+                break;
+            case R.id.tb_calc_num_done://确定
+                //doCommit();
+                break;
+            case R.id.tb_calc_num_1:
+                calcMoney(1);
+                break;
+            case R.id.tb_calc_num_2:
+                calcMoney(2);
+                break;
+            case R.id.tb_calc_num_3:
+                calcMoney(3);
+                break;
+            case R.id.tb_calc_num_4:
+                calcMoney(4);
+                break;
+            case R.id.tb_calc_num_5:
+                calcMoney(5);
+                break;
+            case R.id.tb_calc_num_6:
+                calcMoney(6);
+                break;
+            case R.id.tb_calc_num_7:
+                calcMoney(7);
+                break;
+            case R.id.tb_calc_num_8:
+                calcMoney(8);
+                break;
+            case R.id.tb_calc_num_9:
+                calcMoney(9);
+                break;
+            case R.id.tb_calc_num_0:
+               calcMoney(0);
+                break;
+            case R.id.tb_calc_num_dot:
+                if (dotNum.equals(".00")) {
+                    isDot = true;
+                    dotNum = ".";
+                }
+                moneyTv.setText(num + dotNum);
+                break;
+            case R.id.tb_note_clear://清空
+                doClear();
+                break;
+            case R.id.tb_calc_num_del://删除
+               doDelete();
+                break;
+        }
+    }
+
+
+    public void showPayinfoSelector() {
+        new MaterialDialog.Builder(this)
+                .title("选择支付方式")
+                .titleGravity(GravityEnum.CENTER)
+                .items(cardItems)
+                .positiveText("确定")
+                .negativeText("取消")
+                .itemsCallbackSingleChoice(selectedPayinfoIndex, (dialog, itemView, which, text) -> {
+                    selectedPayinfoIndex = which;
+                    cashTv.setText(cardItems.get(which));
+                    dialog.dismiss();
+                    return false;
+                }).show();
+    }
+
+
+    protected void calcMoney(int money) {
+        if (num.equals("0") && money == 0)
+            return;
+        if (isDot) {
+            if (count < DOT_NUM) {
+                count++;
+                dotNum += money;
+                moneyTv.setText(num + dotNum);
+            }
+        } else if (Integer.parseInt(num) < MAX_NUM) {
+            if (num.equals("0"))
+                num = "";
+            num += money;
+            moneyTv.setText(num + dotNum);
+        }
+    }
+
+    public void doClear() {
+        num = "0";
+        count = 0;
+        dotNum = ".00";
+        isDot = false;
+        moneyTv.setText("0.00");
+    }
+
+    public void doDelete() {
+        if (isDot) {
+            if (count > 0) {
+                dotNum = dotNum.substring(0, dotNum.length() - 1);
+                count--;
+            }
+            if (count == 0) {
+                isDot = false;
+                dotNum = ".00";
+            }
+            moneyTv.setText(num + dotNum);
+        } else {
+            if (num.length() > 0)
+                num = num.substring(0, num.length() - 1);
+            if (num.length() == 0)
+                num = "0";
+            moneyTv.setText(num + dotNum);
         }
     }
 
