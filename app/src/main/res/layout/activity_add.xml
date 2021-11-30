@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     >
 
     <RelativeLayout
@@ -67,12 +68,11 @@
         android:layout_marginTop="10dp"
         android:background="@color/white"
         >
-        
+
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewpager_item"
             android:layout_width="match_parent"
-            android:layout_height="180dp"
-            />
+            android:layout_height="180dp" />
 
         <RelativeLayout
             android:layout_width="match_parent"
