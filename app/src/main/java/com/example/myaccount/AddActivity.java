@@ -1,5 +1,10 @@
 package com.example.myaccount;
 
+import static com.example.myaccount.DateUtils.FORMAT_D;
+import static com.example.myaccount.DateUtils.FORMAT_M;
+import static com.example.myaccount.DateUtils.FORMAT_Y;
+import static com.example.myaccount.DateUtils.FORMAT_YMD;
+
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -19,6 +24,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -139,6 +145,7 @@ public class AddActivity extends AppCompatActivity {
         //要执行这一句才是真正将两者绑定起来
         mediator.attach();
 
+        initData(savedInstanceState);
         initWidget();
     }
 
@@ -180,6 +187,32 @@ public class AddActivity extends AppCompatActivity {
         dateTv.setText(days);
         //设置金额
         moneyTv.setText(num + dotNum);
+    }
+
+
+    protected void initData(Bundle savedInstanceState) {
+        //设置日期选择器初始日期
+        mYear = Integer.parseInt(DateUtils.getCurYear(FORMAT_Y));
+        mMonth = Integer.parseInt(DateUtils.getCurMonth(FORMAT_M));
+        mDay = Integer.parseInt(DateUtils.getCurDay(FORMAT_D));
+        //设置当前 日期
+        days = DateUtils.getCurDateStr("yyyy-MM-dd");
+
+        bundle = getIntent().getBundleExtra("bundle");
+
+        if (bundle != null) {    //edit
+            isEdit = true;
+            //设置账单日期
+            days = DateUtils.long2Str(bundle.getLong("date"), FORMAT_YMD);
+            isOutcome = !bundle.getBoolean("income");
+            remarkInput = bundle.getString("content");
+            DecimalFormat df = new DecimalFormat("######0.00");
+            String money = df.format(bundle.getDouble("cost"));
+            //小数取整
+            num = money.split("\\.")[0];
+            //截取小数部分
+            dotNum = "." + money.split("\\.")[1];
+        }
     }
 
     @Override
