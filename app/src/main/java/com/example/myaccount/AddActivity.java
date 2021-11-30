@@ -5,7 +5,9 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,6 +20,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AddActivity extends AppCompatActivity {
 
@@ -33,11 +36,58 @@ public class AddActivity extends AppCompatActivity {
     private ArrayList<Fragment> fragments;
     private TabLayoutMediator mediator;
 
+    private TextView incomeTv;    //收入按钮
+    private TextView outcomeTv;   //支出按钮
+    private TextView sortTv;     //显示选择的分类
+    private TextView moneyTv;     //金额
+    private TextView dateTv;      //时间选择
+    private TextView cashTv;      //支出方式选择
+    private ImageView remarkIv;   //
+    private ViewPager2 viewpagerItem;
+    private LinearLayout layoutIcon;
+
+    //计算器
+    protected boolean isDot;
+    protected String num = "0";               //整数部分
+    protected String dotNum = ".00";          //小数部分
+    protected final int MAX_NUM = 9999999;    //最大整数
+    protected final int DOT_NUM = 2;          //小数部分最大位数
+    protected int count = 0;
+    //选择器
+    protected List<String> cardItems;
+    protected int selectedPayinfoIndex = 0;      //选择的支付方式序号
+    //viewpager数据
+    protected int page;
+    protected boolean isTotalPage;
+    protected int sortPage = -1;
+
+    protected List<View> viewList;
+    protected ImageView[] icons;
+
+    //记录上一次点击后的分类
+   // public BSort lastBean;
+
+    public boolean isOutcome = true;
+    public boolean isEdit = false;
+    //old Bill
+    private Bundle bundle;
+
+    //选择时间
+    protected int mYear;
+    protected int mMonth;
+    protected int mDay;
+    protected String days;
+
+    //备注
+    protected String remarkInput = "";
+    //protected NoteBean noteBean = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
 
+        //页面跳转
         ImageView back_button = findViewById(R.id.back_to_main);
         back_button.setOnClickListener(view -> {
             Intent intent = new Intent(AddActivity.this,MainActivity.class);
@@ -45,7 +95,7 @@ public class AddActivity extends AppCompatActivity {
         });
 
         tabLayout = findViewById(R.id.tab_layout);
-        viewPager2 = findViewById(R.id.view_pager);
+        viewPager2 = findViewById(R.id.viewpager_item);
 
         final String[] tabs = new String[]{"支出", "收入"};
 
@@ -88,6 +138,8 @@ public class AddActivity extends AppCompatActivity {
         });
         //要执行这一句才是真正将两者绑定起来
         mediator.attach();
+
+        initWidget();
     }
 
     private final ViewPager2.OnPageChangeCallback changeCallback = new ViewPager2.OnPageChangeCallback() {
@@ -111,6 +163,24 @@ public class AddActivity extends AppCompatActivity {
             }
         }
     };
+
+
+    protected void initWidget() {
+        //incomeTv = findViewById(R.id.tb_note_income);
+        //outcomeTv = findViewById(R.id.tb_note_outcome);
+        sortTv = findViewById(R.id.item_tb_type_tv);
+        moneyTv = findViewById(R.id.tb_note_money);
+        dateTv = findViewById(R.id.tb_note_date);
+        cashTv = findViewById(R.id.tb_note_cash);
+        remarkIv = findViewById(R.id.tb_note_remark);
+        viewpagerItem = findViewById(R.id.viewpager_item);
+        layoutIcon = findViewById(R.id.layout_icon);
+
+        //设置账单日期
+        dateTv.setText(days);
+        //设置金额
+        moneyTv.setText(num + dotNum);
+    }
 
     @Override
     protected void onDestroy() {
