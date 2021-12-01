@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,15 +23,13 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.afollestad.materialdialogs.GravityEnum;
-import com.afollestad.materialdialogs.MaterialDialog;
-
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 
 public class AddActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -64,16 +63,12 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     protected final int MAX_NUM = 9999999;    //最大整数
     protected final int DOT_NUM = 2;          //小数部分最大位数
     protected int count = 0;
-    //选择器
-    protected List<String> cardItems;
-    protected int selectedPayinfoIndex = 0;      //选择的支付方式序号
+
+
     //viewpager数据
     protected int page;
     protected boolean isTotalPage;
     protected int sortPage = -1;
-
-    protected List<View> viewList;
-    protected ImageView[] icons;
 
     //记录上一次点击后的分类
    // public BSort lastBean;
@@ -290,18 +285,17 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
 
 
     public void showPayinfoSelector() {
-        new MaterialDialog.Builder(this)
-                .title("选择支付方式")
-                .titleGravity(GravityEnum.CENTER)
-                .items(cardItems)
-                .positiveText("确定")
-                .negativeText("取消")
-                .itemsCallbackSingleChoice(selectedPayinfoIndex, (dialog, itemView, which, text) -> {
-                    selectedPayinfoIndex = which;
-                    cashTv.setText(cardItems.get(which));
-                    dialog.dismiss();
-                    return false;
-                }).show();
+
+    }
+
+    public void doCommit(){
+        final SimpleDateFormat sdf = new SimpleDateFormat(" HH:mm:ss");
+        final String crDate = days + sdf.format(new Date());
+        if ((num + dotNum).equals("0.00")) {
+            Toast.makeText(this, "抱歉，你还没输入金额", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
     }
 
 
