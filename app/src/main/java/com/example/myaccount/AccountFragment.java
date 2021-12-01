@@ -62,21 +62,6 @@ public class AccountFragment extends Fragment {
 
 
     private void initItems() {
-//        Item fork = new Item("三餐","fork",R.drawable.fork);
-//        itemList.add(fork);
-//
-//        Item snack = new Item("零食","snack",R.drawable.snacks);
-//        itemList.add(snack);
-//
-//        Item cloth = new Item("衣服","cloth",R.drawable.clothing);
-//        itemList.add(cloth);
-//
-//        Item study = new Item("学习","study",R.drawable.study);
-//        itemList.add(study);
-//
-//        Item traffic = new Item("交通","traffic",R.drawable.traffic);
-//        itemList.add(traffic);
-
         Item yiban = new Item("一般", "yiban", R.mipmap.type_zijinbuchang);
         itemList.add(yiban);
 
