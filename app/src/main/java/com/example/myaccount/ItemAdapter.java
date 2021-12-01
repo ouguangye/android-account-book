@@ -1,6 +1,7 @@
 package com.example.myaccount;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import java.util.List;
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     private List<Item>itemList;
     private OnItemClickListener listener;
+
 
     static class ViewHolder extends RecyclerView.ViewHolder{
         ImageView itemImage;
@@ -39,13 +41,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item,parent,false);
         ViewHolder holder = new ViewHolder(view);
-        holder.itemView.setOnClickListener(v -> {
-            int position = holder.getAdapterPosition();
-            Item item = itemList.get(position);
-            //Item preItem = itemList.get(holder.selectedPosition);
-           // holder.selectedPosition = position;
-
-        });
         return holder;
     }
 
@@ -57,10 +52,12 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         Item item = itemList.get(position);
         holder.itemImage.setImageResource(item.getId());
         holder.typeName.setText(item.getName());
-        if(position== holder.selectedPosition){
-           // holder.itemImage.setBackgroundColor(R.color.blue_200);
-           // holder.itemImage.setBackgroundResource(R.drawable.blue_circle);
-        }
+        holder.itemView.setOnClickListener(view -> {
+            if(listener!=null){
+                Log.e("click", "!");
+                listener.onItemClick(position);
+            }
+        });
     }
 
     public void setOnItemClickListener(OnItemClickListener listenser) {
