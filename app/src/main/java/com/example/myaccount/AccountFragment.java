@@ -1,5 +1,6 @@
 package com.example.myaccount;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ public class AccountFragment extends Fragment {
     private View rootView;
     private List<Item> itemList = new ArrayList<>();
     protected Item selected_item;
+    private SendDataToActivity listener;
 
 
     public static AccountFragment newInstance(int sign) {
@@ -47,8 +49,15 @@ public class AccountFragment extends Fragment {
         ItemAdapter itemAdapter = new ItemAdapter(itemList);
         itemAdapter.setOnItemClickListener(position -> {
             selected_item = itemList.get(position);
+            listener.send(selected_item);
         });
         recyclerView.setAdapter(itemAdapter);
+    }
+
+    public void onAttach(Activity activity) {
+        // TODO Auto-generated method stub
+        listener=(SendDataToActivity) activity;
+        super.onAttach(activity);
     }
 
 
@@ -103,5 +112,9 @@ public class AccountFragment extends Fragment {
 
         Item meirong = new Item("美容", "meirong", R.mipmap.type_meirong);
 
+    }
+
+    public interface SendDataToActivity{
+        public void send(Item item);
     }
 }

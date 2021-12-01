@@ -54,7 +54,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         holder.typeName.setText(item.getName());
         holder.itemView.setOnClickListener(view -> {
             if(listener!=null){
-                Log.e("click", "!");
                 listener.onItemClick(position);
             }
         });

@@ -25,6 +25,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.myaccount.AccountFragment.SendDataToActivity;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -33,7 +34,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class AddActivity extends AppCompatActivity implements View.OnClickListener{
+
+public class AddActivity extends AppCompatActivity implements View.OnClickListener, SendDataToActivity {
 
     private TabLayout tabLayout;
     private ViewPager2 viewPager2;
@@ -90,6 +92,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     protected String remarkInput = "";
     //protected NoteBean noteBean = null;
 
+    protected Item selected_item;
 
 
     @Override
@@ -381,6 +384,12 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         mediator.detach();
         viewPager2.unregisterOnPageChangeCallback(changeCallback);
         super.onDestroy();
+    }
+
+
+    public void send(Item item){
+        selected_item = item;
+        cashTv.setText(selected_item.getName());
     }
 
 }
