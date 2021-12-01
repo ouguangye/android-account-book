@@ -146,7 +146,7 @@
         android:layout_height="wrap_content">
         <TextView
             android:id="@+id/tb_note_cash"
-            android:text="现金"
+            android:text="一般"
             android:background="@drawable/shape_tb_cash"
             android:textSize="15sp"
             android:paddingLeft="20dp"
