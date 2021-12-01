@@ -183,7 +183,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         cashTv = findViewById(R.id.tb_note_cash);
         remarkIv = findViewById(R.id.tb_note_remark);
         viewpagerItem = findViewById(R.id.viewpager_item);
-        layoutIcon = findViewById(R.id.layout_icon);
+       // layoutIcon = findViewById(R.id.layout_icon);
 
         //设置账单日期
         dateTv.setText(days);

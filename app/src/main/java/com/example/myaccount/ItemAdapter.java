@@ -1,7 +1,6 @@
 package com.example.myaccount;
 
 import android.annotation.SuppressLint;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,13 +15,13 @@ import java.util.List;
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     private List<Item>itemList;
     private OnItemClickListener listener;
+    private Item preItem;
 
 
     static class ViewHolder extends RecyclerView.ViewHolder{
         ImageView itemImage;
         TextView typeName;
         View itemView;
-        int selectedPosition=0;
 
         public ViewHolder(@NonNull View view) {
             super(view);
@@ -50,7 +49,11 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Item item = itemList.get(position);
-        holder.itemImage.setImageResource(item.getId());
+        preItem = item;
+        if(position==0){
+            holder.itemImage.setImageResource(item.getActive_id());
+        }
+        else holder.itemImage.setImageResource(item.getOrigin_id());
         holder.typeName.setText(item.getName());
         holder.itemView.setOnClickListener(view -> {
             if(listener!=null){

@@ -72,9 +72,9 @@
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewpager_item"
             android:layout_width="match_parent"
-            android:layout_height="180dp" />
+            android:layout_height="200dp" />
 
-        <RelativeLayout
+        <!--<RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="15dp"
             android:layout_below="@+id/viewpager_item"
@@ -86,14 +86,14 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:orientation="horizontal" />
-        </RelativeLayout>
+        </RelativeLayout>-->
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/select_layout"
-        android:layout_marginBottom="17dp">
+        android:layout_marginBottom="15dp">
 
         <EditText
             android:id="@+id/item_tb_type_tv"
