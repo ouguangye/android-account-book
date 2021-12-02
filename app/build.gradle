@@ -49,6 +49,8 @@ dependencies {
     implementation 'org.litepal.android:core:1.6.1'
     implementation 'com.haibin:calendarview:3.6.8'
 
+    implementation 'com.hhl:gridpagersnaphelper:1.0.0'
+    implementation 'com.hhl:recyclerviewindicator:1.0.0'
 
     def room_version = "2.3.0"
     implementation "androidx.room:room-runtime:$room_version"

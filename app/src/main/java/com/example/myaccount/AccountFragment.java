@@ -44,9 +44,40 @@ public class AccountFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         initItems();
         RecyclerView recyclerView = getActivity().findViewById(R.id.list_view);
-        GridLayoutManager gll = new GridLayoutManager(getActivity(), 5);
-        recyclerView.setLayoutManager(gll);
         ItemAdapter itemAdapter = new ItemAdapter(itemList);
+        recyclerView.setAdapter(itemAdapter);
+
+        recyclerView.setHasFixedSize(true);
+        GridLayoutManager gll = new GridLayoutManager(getActivity(), 5,RecyclerView.VERTICAL,false);
+       /* GridPagerSnapHelper gridPagerSnapHelper = new GridPagerSnapHelper();
+        gridPagerSnapHelper.setRow(2).setColumn(5);
+        gridPagerSnapHelper.attachToRecyclerView(recyclerView);
+
+        GridPagerUtils.transformAndFillEmptyData(
+                new OneRowDataTransform<Item>(2), itemList);
+
+        CirclePageIndicator indicator = (CirclePageIndicator) getActivity().findViewById(R.id.first_page_indicator);
+        indicator.setRecyclerView(recyclerView);
+        //Note: pageColumn must be config
+        indicator.setPageColumn(5);
+
+
+        indicator.setOnPageChangeListener(new OnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });*/
+
+
+
+        recyclerView.setLayoutManager(gll);
+
         itemAdapter.setOnItemClickListener(position -> {
             View pre_v=recyclerView.getChildAt(selected_item.getId());
             ItemAdapter.ViewHolder pre_viewHolder=(ItemAdapter.ViewHolder)recyclerView.getChildViewHolder(pre_v);
@@ -61,7 +92,7 @@ public class AccountFragment extends Fragment {
             listener.send(selected_item);
         });
         selected_item=itemList.get(0);
-        recyclerView.setAdapter(itemAdapter);
+
         listener.send(selected_item);
     }
 
@@ -106,17 +137,17 @@ public class AccountFragment extends Fragment {
         Item shuidian = new Item("水电","shuidian",R.mipmap.shuidian_grey,R.mipmap.shuidianfei_blue,10);
         itemList.add(shuidian);
 
-        Item yifu = new Item("衣服","yifu",R.mipmap.yifu_grey,R.mipmap.yifu_blue,11);
-        itemList.add(yifu);
-
-        Item yiliao = new Item("医疗","yiliao",R.mipmap.yiliao_grey,R.mipmap.yiliao_blue,12);
-        itemList.add(yiliao);
-
-        Item yundong = new Item("运动","yundong",R.mipmap.yundong_grey,R.mipmap.yundong_blue,13);
-        itemList.add(yundong);
-
-        Item yvle = new Item("娱乐","yule",R.mipmap.yvle_grey,R.mipmap.yvle_blue,14);
-        itemList.add(yvle);
+//        Item yifu = new Item("衣服","yifu",R.mipmap.yifu_grey,R.mipmap.yifu_blue,11);
+//        itemList.add(yifu);
+//
+//        Item yiliao = new Item("医疗","yiliao",R.mipmap.yiliao_grey,R.mipmap.yiliao_blue,12);
+//        itemList.add(yiliao);
+//
+//        Item yundong = new Item("运动","yundong",R.mipmap.yundong_grey,R.mipmap.yundong_blue,13);
+//        itemList.add(yundong);
+//
+//        Item yvle = new Item("娱乐","yule",R.mipmap.yvle_grey,R.mipmap.yvle_blue,14);
+//        itemList.add(yvle);
 
         Item zhufang = new Item("住房","zhufang",R.mipmap.zhufang_grey,R.mipmap.zhufang_blue,15);
         itemList.add(zhufang);
