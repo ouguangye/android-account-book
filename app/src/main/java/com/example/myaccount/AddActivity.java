@@ -25,7 +25,6 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.myaccount.AccountFragment.SendDataToActivity;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -56,7 +55,6 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     private TextView dateTv;      //时间选择
     private TextView cashTv;      //支出方式选择
     private ImageView remarkIv;   //
-    private ViewPager2 viewpagerItem;
     private LinearLayout layoutIcon;
     private Context mContext;
 
@@ -94,6 +92,9 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
 
     protected Item selected_item;
 
+    private ArrayList<Item> OutcomeItemList = new ArrayList<>();
+    private ArrayList<Item> IncomeItemList = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,14 +102,19 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         setContentView(R.layout.activity_add);
 
 
-
         tabLayout = findViewById(R.id.tab_layout);
         viewPager2 = findViewById(R.id.viewpager_item);
 
+        initIncomeItems();
+        initOutcomeItems();
+        initData(savedInstanceState);
+        initWidget();
+
         final String[] tabs = new String[]{"支出", "收入"};
+        final char[] sign = new char[]{'-','+'};
 
         //禁用预加载
-        viewPager2.setOffscreenPageLimit(ViewPager2.OFFSCREEN_PAGE_LIMIT_DEFAULT);
+        //viewPager2.setOffscreenPageLimit(ViewPager2.OFFSCREEN_PAGE_LIMIT_DEFAULT);
         //Adapter
         viewPager2.setAdapter(new FragmentStateAdapter(getSupportFragmentManager(), getLifecycle()) {
             @NonNull
@@ -116,7 +122,8 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
             public Fragment createFragment(int position) {
                 //FragmentStateAdapter内部自己会管理已实例化的fragment对象。
                 // 所以不需要考虑复用的问题
-                return AccountFragment.newInstance(position);
+                if(position==0)return AccountFragment.newInstance(sign[position],OutcomeItemList);
+                else return BlankFragment.newInstance(sign[position],IncomeItemList);
             }
 
             @Override
@@ -146,9 +153,6 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         });
         //要执行这一句才是真正将两者绑定起来
         mediator.attach();
-
-        initData(savedInstanceState);
-        initWidget();
     }
 
     private final ViewPager2.OnPageChangeCallback changeCallback = new ViewPager2.OnPageChangeCallback() {
@@ -175,15 +179,12 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
 
 
     protected void initWidget() {
-        //incomeTv = findViewById(R.id.tb_note_income);
-        //outcomeTv = findViewById(R.id.tb_note_outcome);
         sortTv = findViewById(R.id.item_tb_type_tv);
         moneyTv = findViewById(R.id.tb_note_money);
         dateTv = findViewById(R.id.tb_note_date);
         cashTv = findViewById(R.id.tb_note_cash);
         remarkIv = findViewById(R.id.tb_note_remark);
-        viewpagerItem = findViewById(R.id.viewpager_item);
-       // layoutIcon = findViewById(R.id.layout_icon);
+        //layoutIcon = findViewById(R.id.layout_icon);
 
         //设置账单日期
         dateTv.setText(days);
@@ -392,4 +393,77 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         cashTv.setText(selected_item.getName());
     }
 
+    private void initOutcomeItems() {
+        Item canyin = new Item("餐饮","canyin",R.mipmap.canyin_grey,R.mipmap.canyin_blue,0);
+        OutcomeItemList.add(canyin);
+
+        Item chongwu = new Item("宠物","chongwu",R.mipmap.chongwu_grey,R.mipmap.chongwu_blue,1);
+        OutcomeItemList.add(chongwu);
+
+        Item dianqi = new Item("电器","dianqi",R.mipmap.dianqi_grey,R.mipmap.dianqi_blue,2);
+        OutcomeItemList.add(dianqi);
+
+        Item haizi = new Item("孩子","haizi",R.mipmap.haizi_grey,R.mipmap.haizi_blue,3);
+        OutcomeItemList.add(haizi);
+
+        Item hongbao = new Item("红包","hongbao",R.mipmap.hongbao_grey,R.mipmap.hongbao_blue,4);
+        OutcomeItemList.add(hongbao);
+
+        Item huafei = new Item("话费","huafei",R.mipmap.huafei_grey,R.mipmap.huafei_blue,5);
+        OutcomeItemList.add(huafei);
+
+        Item huazhuang = new Item("化妆","huazhuang",R.mipmap.huazhuangpin_grey,R.mipmap.huazhuang_blue,6);
+        OutcomeItemList.add(huazhuang);
+
+        Item jiaotong = new Item("交通","jiaotong",R.mipmap.jiaotong_grey,R.mipmap.jiaotong_blue,7);
+        OutcomeItemList.add(jiaotong);
+
+        Item lingshi = new Item("零食","linghshi",R.mipmap.lingshi_grey,R.mipmap.lingshi_blue,8);
+        OutcomeItemList.add(lingshi);
+
+        Item lvyou = new Item("旅游","lvyou",R.mipmap.lvyou_grey,R.mipmap.lvyou_blue,9);
+        OutcomeItemList.add(lvyou);
+
+        Item shuidian = new Item("水电","shuidian",R.mipmap.shuidian_grey,R.mipmap.shuidianfei_blue,10);
+        OutcomeItemList.add(shuidian);
+
+//        Item yifu = new Item("衣服","yifu",R.mipmap.yifu_grey,R.mipmap.yifu_blue,11);
+//        itemList.add(yifu);
+//
+//        Item yiliao = new Item("医疗","yiliao",R.mipmap.yiliao_grey,R.mipmap.yiliao_blue,12);
+//        itemList.add(yiliao);
+//
+//        Item yundong = new Item("运动","yundong",R.mipmap.yundong_grey,R.mipmap.yundong_blue,13);
+//        itemList.add(yundong);
+//
+//        Item yvle = new Item("娱乐","yule",R.mipmap.yvle_grey,R.mipmap.yvle_blue,14);
+//        itemList.add(yvle);
+
+        Item zhufang = new Item("住房","zhufang",R.mipmap.zhufang_grey,R.mipmap.zhufang_blue,11);
+        OutcomeItemList.add(zhufang);
+
+        Item xuexi = new Item("学习","xuexi",R.mipmap.xuexi_grey,R.mipmap.xuexi_blue,12);
+        OutcomeItemList.add(xuexi);
+
+        Item riyongpin = new Item("日用品","riyongping",R.mipmap.riyong_grey,R.mipmap.riyongpin_blue,13);
+        OutcomeItemList.add(riyongpin);
+
+        Item qita = new Item("其他","qita",R.mipmap.qita_grey,R.mipmap.qita_blue,14);
+        OutcomeItemList.add(qita);
+
+    }
+
+    public void initIncomeItems(){
+        Item yifu = new Item("衣服","yifu",R.mipmap.yifu_grey,R.mipmap.yifu_blue,11);
+        IncomeItemList.add(yifu);
+
+        Item yiliao = new Item("医疗","yiliao",R.mipmap.yiliao_grey,R.mipmap.yiliao_blue,12);
+        IncomeItemList.add(yiliao);
+
+        Item yundong = new Item("运动","yundong",R.mipmap.yundong_grey,R.mipmap.yundong_blue,13);
+        IncomeItemList.add(yundong);
+
+        Item yvle = new Item("娱乐","yule",R.mipmap.yvle_grey,R.mipmap.yvle_blue,14);
+        IncomeItemList.add(yvle);
+    }
 }
