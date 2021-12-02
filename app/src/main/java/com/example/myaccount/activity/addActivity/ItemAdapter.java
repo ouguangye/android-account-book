@@ -15,7 +15,7 @@ import com.example.myaccount.R;
 import java.util.List;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
-    private List<Item>itemList;
+    private final List<Item>itemList;
     private OnItemClickListener listener;
     private Item preItem;
 
@@ -41,11 +41,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item,parent,false);
-        ViewHolder holder = new ViewHolder(view);
-        return holder;
+        return new ViewHolder(view);
     }
-
-
 
     @SuppressLint("ResourceAsColor")
     @Override
@@ -74,6 +71,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         return itemList.size();
     }
 
+    //adapter和fragment交互的接口
     public interface OnItemClickListener {
         void onItemClick(int position);
     }

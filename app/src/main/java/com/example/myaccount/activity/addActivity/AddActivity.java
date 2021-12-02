@@ -463,9 +463,6 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
 
         //连接
         connectedTabAndViewpager();
-
-
-
     }
 
     @Override

@@ -36,7 +36,7 @@ public class AccountFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_account, container, false);
+        rootView = inflater.inflate(R.layout.fragment_outcome_rv, container, false);
         return rootView;
     }
 
@@ -46,7 +46,7 @@ public class AccountFragment extends Fragment {
 
         itemList = getArguments().getParcelableArrayList("list");
 
-        RecyclerView recyclerView = getActivity().findViewById(R.id.list_view);
+        RecyclerView recyclerView = getActivity().findViewById(R.id.outcome_rv_view);
         ItemAdapter itemAdapter = new ItemAdapter(itemList);
         recyclerView.setAdapter(itemAdapter);
 
