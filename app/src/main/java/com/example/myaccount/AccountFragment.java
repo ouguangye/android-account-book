@@ -149,16 +149,16 @@ public class AccountFragment extends Fragment {
 //        Item yvle = new Item("娱乐","yule",R.mipmap.yvle_grey,R.mipmap.yvle_blue,14);
 //        itemList.add(yvle);
 
-        Item zhufang = new Item("住房","zhufang",R.mipmap.zhufang_grey,R.mipmap.zhufang_blue,15);
+        Item zhufang = new Item("住房","zhufang",R.mipmap.zhufang_grey,R.mipmap.zhufang_blue,11);
         itemList.add(zhufang);
 
-        Item xuexi = new Item("学习","xuexi",R.mipmap.xuexi_grey,R.mipmap.xuexi_blue,16);
+        Item xuexi = new Item("学习","xuexi",R.mipmap.xuexi_grey,R.mipmap.xuexi_blue,12);
         itemList.add(xuexi);
 
-        Item riyongpin = new Item("日用品","riyongping",R.mipmap.riyong_grey,R.mipmap.riyongpin_blue,17);
+        Item riyongpin = new Item("日用品","riyongping",R.mipmap.riyong_grey,R.mipmap.riyongpin_blue,13);
         itemList.add(riyongpin);
 
-        Item qita = new Item("其他","qita",R.mipmap.qita_grey,R.mipmap.qita_blue,18);
+        Item qita = new Item("其他","qita",R.mipmap.qita_grey,R.mipmap.qita_blue,14);
         itemList.add(qita);
 
     }
