@@ -18,24 +18,24 @@ import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link IncomeFragment#newInstance} factory method to
+ * Use the {@link IncomeRVFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class IncomeFragment extends Fragment {
+public class IncomeRVFragment extends Fragment {
 
     private List<Item> itemList = new ArrayList<>();
     protected Item selected_item;
     private SendDataToActivity listener;
 
-    public IncomeFragment(ArrayList<Item> list) {
+    public IncomeRVFragment(ArrayList<Item> list) {
        itemList =list;
     }
 
 
     // TODO: Rename and change types and number of parameters
-    public static IncomeFragment newInstance(ArrayList<Item> list) {
+    public static IncomeRVFragment newInstance(ArrayList<Item> list) {
         Bundle args = new Bundle();
-        IncomeFragment fragment = new IncomeFragment(list);
+        IncomeRVFragment fragment = new IncomeRVFragment(list);
         fragment.setArguments(args);
         return fragment;
     }
@@ -62,7 +62,7 @@ public class IncomeFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        RecyclerView recyclerView = getActivity().findViewById(R.id.fragment_blank);
+        RecyclerView recyclerView = getActivity().findViewById(R.id.income_rv_view);
         ItemAdapter itemAdapter = new ItemAdapter(itemList);
         recyclerView.setAdapter(itemAdapter);
 

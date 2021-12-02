@@ -232,8 +232,8 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
             public Fragment createFragment(int position) {
                 //FragmentStateAdapter内部自己会管理已实例化的fragment对象。
                 // 所以不需要考虑复用的问题
-                if(position==0)return OutcomeFragment.newInstance(OutcomeItemList);
-                else return IncomeFragment.newInstance(IncomeItemList);
+                if(position==0)return OutcomeRVFragment.newInstance(OutcomeItemList);
+                else return IncomeRVFragment.newInstance(IncomeItemList);
             }
 
             @Override

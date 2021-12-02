@@ -17,17 +17,17 @@ import com.example.myaccount.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OutcomeFragment extends Fragment {
+public class OutcomeRVFragment extends Fragment {
 
     private View rootView;
     private List<Item> itemList = new ArrayList<>();
     protected Item selected_item;
     private SendDataToActivity listener;
 
-    public static OutcomeFragment newInstance(ArrayList<Item>list) {
+    public static OutcomeRVFragment newInstance(ArrayList<Item>list) {
         Bundle args = new Bundle();
         args.putParcelableArrayList("list", list);
-        OutcomeFragment fragment = new OutcomeFragment();
+        OutcomeRVFragment fragment = new OutcomeRVFragment();
         fragment.setArguments(args);
         return fragment;
     }
