@@ -11,12 +11,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyAccount" >
         <activity
-            android:name=".AddActivity"
+            android:name=".activity.addActivity.AddActivity"
             android:exported="true"
             android:theme="@style/Theme.MyAccount.NoActionBar">
         </activity>
         <activity
-            android:name=".CalendarActivity"
+            android:name=".activity.CalendarActivity"
             android:exported="true"
             android:theme="@style/Theme.MyAccount.NoActionBar" />
         <activity

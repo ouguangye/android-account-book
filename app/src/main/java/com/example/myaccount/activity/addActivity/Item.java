@@ -1,37 +1,15 @@
-package com.example.myaccount;
+package com.example.myaccount.activity.addActivity;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Item implements Parcelable {
-    private String name;
-    private String type;
-    private int  origin_id;
-    private int active_id;
+public class Item implements Parcelable { //实现Parcelable接口是为了方便传参
+    private String name; //类型的名字
+    private String type; //类型的拼音模式
+    private int  origin_id; //类型的原来灰色图片
+    private int active_id; //类型被点击后的蓝色图片
+    private int id; //在队列中的位置
 
-    protected Item(Parcel in) {
-        name = in.readString();
-        type = in.readString();
-        origin_id = in.readInt();
-        active_id = in.readInt();
-        id = in.readInt();
-    }
-
-    public static final Creator<Item> CREATOR = new Creator<Item>() {
-        @Override
-        public Item createFromParcel(Parcel in) {
-           return new Item(in);
-        }
-
-        @Override
-        public Item[] newArray(int size) {
-            return new Item[size];
-        }
-    };
-
-    public int getId() {
-        return id;
-    }
 
     public Item(String name, String type, int origin_id, int active_id, int id) {
         this.name = name;
@@ -41,11 +19,13 @@ public class Item implements Parcelable {
         this.id = id;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
-
-    private int id;
 
     public int getOrigin_id() {
         return origin_id;
@@ -79,6 +59,8 @@ public class Item implements Parcelable {
         this.type = type;
     }
 
+
+    //实现Parcel的接口
     @Override
     public int describeContents() {
         return 0;
@@ -92,4 +74,24 @@ public class Item implements Parcelable {
         parcel.writeInt(active_id);
         parcel.writeInt(id);
     }
+
+    protected Item(Parcel in) {
+        name = in.readString();
+        type = in.readString();
+        origin_id = in.readInt();
+        active_id = in.readInt();
+        id = in.readInt();
+    }
+
+    public static final Creator<Item> CREATOR = new Creator<Item>() {
+        @Override
+        public Item createFromParcel(Parcel in) {
+            return new Item(in);
+        }
+
+        @Override
+        public Item[] newArray(int size) {
+            return new Item[size];
+        }
+    };
 }

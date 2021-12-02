@@ -1,13 +1,13 @@
-package com.example.myaccount;
+package com.example.myaccount.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import io.blackbox_vision.materialcalendarview.view.CalendarView;
+import com.example.myaccount.MainActivity;
+import com.example.myaccount.R;
 
 
 public class CalendarActivity extends AppCompatActivity {
@@ -17,14 +17,11 @@ public class CalendarActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
 
+        //回退按钮，点击回退到主页面
         ImageView back_button = findViewById(R.id.back_to_main);
-        back_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(CalendarActivity.this,MainActivity.class);
-                startActivity(intent);
-            };
-
+        back_button.setOnClickListener(view -> {
+            Intent intent = new Intent(CalendarActivity.this, MainActivity.class);
+            startActivity(intent);
         });
 
     }

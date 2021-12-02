@@ -1,9 +1,9 @@
-package com.example.myaccount;
+package com.example.myaccount.activity.addActivity;
 
-import static com.example.myaccount.DateUtils.FORMAT_D;
-import static com.example.myaccount.DateUtils.FORMAT_M;
-import static com.example.myaccount.DateUtils.FORMAT_Y;
-import static com.example.myaccount.DateUtils.FORMAT_YMD;
+import static com.example.myaccount.util.DateUtils.FORMAT_D;
+import static com.example.myaccount.util.DateUtils.FORMAT_M;
+import static com.example.myaccount.util.DateUtils.FORMAT_Y;
+import static com.example.myaccount.util.DateUtils.FORMAT_YMD;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
@@ -25,6 +25,9 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.myaccount.MainActivity;
+import com.example.myaccount.R;
+import com.example.myaccount.util.DateUtils;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -230,7 +233,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.back_to_main:
-                Intent intent = new Intent(AddActivity.this,MainActivity.class);
+                Intent intent = new Intent(AddActivity.this, MainActivity.class);
                 startActivity(intent);
                 break;
             case R.id.tb_note_cash://现金
@@ -454,16 +457,16 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     }
 
     public void initIncomeItems(){
-        Item yifu = new Item("衣服","yifu",R.mipmap.yifu_grey,R.mipmap.yifu_blue,11);
+        Item yifu = new Item("衣服","yifu",R.mipmap.yifu_grey,R.mipmap.yifu_blue,0);
         IncomeItemList.add(yifu);
 
-        Item yiliao = new Item("医疗","yiliao",R.mipmap.yiliao_grey,R.mipmap.yiliao_blue,12);
+        Item yiliao = new Item("医疗","yiliao",R.mipmap.yiliao_grey,R.mipmap.yiliao_blue,1);
         IncomeItemList.add(yiliao);
 
-        Item yundong = new Item("运动","yundong",R.mipmap.yundong_grey,R.mipmap.yundong_blue,13);
+        Item yundong = new Item("运动","yundong",R.mipmap.yundong_grey,R.mipmap.yundong_blue,2);
         IncomeItemList.add(yundong);
 
-        Item yvle = new Item("娱乐","yule",R.mipmap.yvle_grey,R.mipmap.yvle_blue,14);
+        Item yvle = new Item("娱乐","yule",R.mipmap.yvle_grey,R.mipmap.yvle_blue,3);
         IncomeItemList.add(yvle);
     }
 }

@@ -1,4 +1,4 @@
-package com.example.myaccount;
+package com.example.myaccount.activity.addActivity;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -11,6 +11,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.myaccount.R;
 
 import java.util.ArrayList;
 import java.util.List;
