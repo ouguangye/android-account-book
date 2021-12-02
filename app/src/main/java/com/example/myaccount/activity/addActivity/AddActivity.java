@@ -161,17 +161,20 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     }
     //初始化支出的图标列表
     public void initIncomeItems(){
-        Item yifu = new Item("衣服","yifu",R.mipmap.yifu_grey,R.mipmap.yifu_blue,0);
-        IncomeItemList.add(yifu);
+        Item gongzi = new Item("工资","gongzi",R.mipmap.gongzi_grey,R.mipmap.gongzi_blue,0);
+        IncomeItemList.add(gongzi);
 
-        Item yiliao = new Item("医疗","yiliao",R.mipmap.yiliao_grey,R.mipmap.yiliao_blue,1);
-        IncomeItemList.add(yiliao);
+        Item gupiao = new Item("股票","gupiao",R.mipmap.gupiao_grey,R.mipmap.gupiao_blue,1);
+        IncomeItemList.add(gupiao);
 
-        Item yundong = new Item("运动","yundong",R.mipmap.yundong_grey,R.mipmap.yundong_blue,2);
-        IncomeItemList.add(yundong);
+        Item hongbao = new Item("红包","hongbao",R.mipmap.hongbao_grey,R.mipmap.hongbao_blue,2);
+        IncomeItemList.add(hongbao);
 
-        Item yvle = new Item("娱乐","yule",R.mipmap.yvle_grey,R.mipmap.yvle_blue,3);
-        IncomeItemList.add(yvle);
+        Item jianzhi = new Item("兼职","jianzhi",R.mipmap.jianzhi_grey,R.mipmap.jianzhi_blue,3);
+        IncomeItemList.add(jianzhi);
+
+        Item shenghuofei = new Item("生活费","shenghuofei",R.mipmap.shuidian_grey,R.mipmap.shuidianfei_blue,4);
+        IncomeItemList.add(shenghuofei);
     }
 
     //初始化数据
