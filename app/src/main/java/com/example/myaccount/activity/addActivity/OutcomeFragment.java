@@ -17,18 +17,17 @@ import com.example.myaccount.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AccountFragment extends Fragment {
+public class OutcomeFragment extends Fragment {
 
     private View rootView;
     private List<Item> itemList = new ArrayList<>();
     protected Item selected_item;
     private SendDataToActivity listener;
 
-    public static AccountFragment newInstance(char sign,ArrayList<Item>list) {
+    public static OutcomeFragment newInstance(ArrayList<Item>list) {
         Bundle args = new Bundle();
-        args.putChar("sign", sign);
         args.putParcelableArrayList("list", list);
-        AccountFragment fragment = new AccountFragment();
+        OutcomeFragment fragment = new OutcomeFragment();
         fragment.setArguments(args);
         return fragment;
     }

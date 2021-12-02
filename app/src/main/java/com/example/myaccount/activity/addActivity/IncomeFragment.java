@@ -18,24 +18,24 @@ import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link BlankFragment#newInstance} factory method to
+ * Use the {@link IncomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class BlankFragment extends Fragment {
+public class IncomeFragment extends Fragment {
 
     private List<Item> itemList = new ArrayList<>();
     protected Item selected_item;
     private SendDataToActivity listener;
 
-    public BlankFragment(ArrayList<Item> list) {
+    public IncomeFragment(ArrayList<Item> list) {
        itemList =list;
     }
 
 
     // TODO: Rename and change types and number of parameters
-    public static BlankFragment newInstance(char sign, ArrayList<Item> list) {
+    public static IncomeFragment newInstance(ArrayList<Item> list) {
         Bundle args = new Bundle();
-        BlankFragment fragment = new BlankFragment(list);
+        IncomeFragment fragment = new IncomeFragment(list);
         fragment.setArguments(args);
         return fragment;
     }
