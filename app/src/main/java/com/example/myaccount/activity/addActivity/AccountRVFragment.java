@@ -17,17 +17,18 @@ import com.example.myaccount.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OutcomeRVFragment extends Fragment {
+public class AccountRVFragment extends Fragment {
 
     private View rootView;
     private List<Item> itemList = new ArrayList<>();
     protected Item selected_item;
     private SendDataToActivity listener;
 
-    public static OutcomeRVFragment newInstance(ArrayList<Item>list) {
+    public static AccountRVFragment newInstance(int position, ArrayList<Item>list) {
         Bundle args = new Bundle();
+        args.putInt("position",position);
         args.putParcelableArrayList("list", list);
-        OutcomeRVFragment fragment = new OutcomeRVFragment();
+        AccountRVFragment fragment = new AccountRVFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -35,8 +36,8 @@ public class OutcomeRVFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_outcome_rv, container, false);
-        return rootView;
+        if(getArguments().getInt("position")==0)return inflater.inflate(R.layout.fragment_outcome_rv, container, false);
+        else return inflater.inflate(R.layout.fragment_income_rv, container, false);
     }
 
     @Override
@@ -44,8 +45,9 @@ public class OutcomeRVFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         itemList = getArguments().getParcelableArrayList("list");
-
-        RecyclerView recyclerView = getActivity().findViewById(R.id.outcome_rv_view);
+        RecyclerView recyclerView;
+        if(getArguments().getInt("position")==0) recyclerView = getActivity().findViewById(R.id.outcome_rv_view);
+        else recyclerView = getActivity().findViewById(R.id.income_rv_view);
         ItemAdapter itemAdapter = new ItemAdapter(itemList);
         recyclerView.setAdapter(itemAdapter);
 
