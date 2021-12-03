@@ -1,40 +1,43 @@
-package com.example.myaccount.dataBase.room;
+package com.example.myaccount.dataBase;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity
+@Entity(tableName = "account")
 public class Account {
 
     //序列id
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "sid",typeAffinity = ColumnInfo.INTEGER)
     private int sid;
 
     //用户对应的id
+    @ColumnInfo(name = "uid",typeAffinity = ColumnInfo.INTEGER)
     private int uid;
 
     //符号, 0表示支出，1表示收入
-    @ColumnInfo(name = "sign")
+    @ColumnInfo(name = "sign",typeAffinity = ColumnInfo.INTEGER)
     private int sign;
 
     //类型的名字，以拼音的形式
-    @ColumnInfo(name = "type")
+    @ColumnInfo(name = "type",typeAffinity = ColumnInfo.TEXT)
     private String type;
 
     //account的数目
-    @ColumnInfo(name = "amount")
+    @ColumnInfo(name = "amount",typeAffinity = ColumnInfo.REAL)
     private double amount;
 
     //创建的时间，只精确到天
-    @ColumnInfo(name = "date")
+    @ColumnInfo(name = "date",typeAffinity = ColumnInfo.TEXT)
     private String date;
 
     //相关描述
-    @ColumnInfo(name = "des")
+    @ColumnInfo(name = "des",typeAffinity = ColumnInfo.TEXT)
     private String des;
 
-    public Account(int sign,String type,String date,double amount,String des){
+    public Account(int uid,int sign,String type,double amount,String date,String des){
+        setUid(uid);
         setDate(date);
         setSign(sign);
         setType(type);

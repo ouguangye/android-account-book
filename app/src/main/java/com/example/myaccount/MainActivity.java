@@ -14,6 +14,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.myaccount.activity.CalendarActivity;
 import com.example.myaccount.activity.addActivity.AddActivity;
+import com.example.myaccount.dataBase.AccountDataBase;
 import com.example.myaccount.databinding.ActivityMainBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -22,6 +23,7 @@ import com.google.android.material.snackbar.Snackbar;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+    private AccountDataBase accountDataBase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +59,9 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, AddActivity.class);
             startActivity(intent);
         });
+
+        //创建数据库
+        //accountDataBase = AccountDataBase.getInstance(this);
 
     }
 

@@ -11,9 +11,11 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +28,8 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.myaccount.MainActivity;
 import com.example.myaccount.R;
+import com.example.myaccount.dataBase.Account;
+import com.example.myaccount.dataBase.AccountDataBase;
 import com.example.myaccount.util.DateUtils;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -54,6 +58,8 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     private TextView dateTv;      //时间选择
     private TextView cashTv;      //支出方式选择
     private ImageView remarkIv;   //
+    private  TextView confirmIv;//确认键
+    private EditText desIv;//输入框
 
     //计算器
     protected boolean isDot;
@@ -82,10 +88,15 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     //之前选择的那个类型
     protected Item selected_item;
 
+    //目前处在的页面，0表示支出页面，1表示收入页面
+    private int currentPosition = 0;
+
     //支出和收入的类型列表
     private final ArrayList<Item> OutcomeItemList = new ArrayList<>();
     private final ArrayList<Item> IncomeItemList = new ArrayList<>();
 
+    //数据库
+    private AccountDataBase accountDataBase;
 
     //初始化
 
@@ -94,6 +105,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         BackToMain.setOnClickListener(this);
         dateTv.setOnClickListener(this);
         remarkIv.setOnClickListener(this);
+        confirmIv.setOnClickListener(this);
     }
 
     //初始化支出的图标
@@ -213,6 +225,8 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         cashTv = findViewById(R.id.tb_note_cash);
         remarkIv = findViewById(R.id.tb_note_remark);
         BackToMain = findViewById(R.id.back_to_main);
+        confirmIv = findViewById(R.id.tb_calc_num_done);
+        desIv = findViewById(R.id.item_tb_type_tv);
         //设置账单日期
         dateTv.setText(days);
         //设置金额
@@ -225,7 +239,6 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         viewPager2 = findViewById(R.id.viewpager_item);
 
         final String[] tabs = new String[]{"支出", "收入"};
-        final char[] sign = new char[]{'-','+'};
         //禁用预加载
         viewPager2.setOffscreenPageLimit(ViewPager2.OFFSCREEN_PAGE_LIMIT_DEFAULT);
         //Adapter
@@ -235,6 +248,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
             public Fragment createFragment(int position) {
                 //FragmentStateAdapter内部自己会管理已实例化的fragment对象。
                 // 所以不需要考虑复用的问题
+                currentPosition = position;
                 if(position==0)return AccountRVFragment.newInstance(position,OutcomeItemList);
                 else return AccountRVFragment.newInstance(position,IncomeItemList);
             }
@@ -334,14 +348,13 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
                 isDot = false;
                 dotNum = ".00";
             }
-            moneyTv.setText(num + dotNum);
         } else {
             if (num.length() > 0)
                 num = num.substring(0, num.length() - 1);
             if (num.length() == 0)
                 num = "0";
-            moneyTv.setText(num + dotNum);
         }
+        moneyTv.setText(num + dotNum);
     }
 
     //时间选择器
@@ -380,6 +393,19 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         if ((num + dotNum).equals("0.00")) {
             Toast.makeText(this, "抱歉，你还没输入金额", Toast.LENGTH_SHORT).show();
         }
+        else{
+            new InsertAccountTask(currentPosition,selected_item.getType(),Double.parseDouble((String) moneyTv.getText()),crDate,desIv.getText().toString()).execute();
+            Toast.makeText(this,"添加成功",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    //清空
+    public void clear(){
+        moneyTv.setText("0.00");
+        desIv.setText("");
+        num = "0";               //整数部分
+        dotNum = ".00";
+        isDot = false;
     }
 
     //所有点击事件
@@ -398,7 +424,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
                 //showContentDialog();
                 break;
             case R.id.tb_calc_num_done://确定
-                //doCommit();
+                doCommit();
                 break;
             case R.id.tb_calc_num_1:
                 calcMoney(1);
@@ -464,6 +490,9 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         initWidget();
         initClick();
 
+        //数据库实例化
+        accountDataBase = AccountDataBase.getInstance(this);
+
         //连接
         connectedTabAndViewpager();
     }
@@ -473,5 +502,36 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         mediator.detach();
         viewPager2.unregisterOnPageChangeCallback(changeCallback);
         super.onDestroy();
+    }
+
+    //多线程
+    //添加数据
+    @SuppressLint("StaticFieldLeak")
+    private class InsertAccountTask extends AsyncTask<Void,Void,Void>{
+        int sign;
+        String type;
+        double amount;
+        String date;
+        String des;
+
+       public InsertAccountTask(int sign,String type,double amount,String date,String des){
+            this.sign = sign;
+            this.type = type;
+            this.amount = amount;
+            this.date = date;
+            this.des = des;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            accountDataBase.getAccountDao().insertAccount(new Account(0,sign,type,amount,date,des));
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void unused) {
+            super.onPostExecute(unused);
+            clear();
+        }
     }
 }
