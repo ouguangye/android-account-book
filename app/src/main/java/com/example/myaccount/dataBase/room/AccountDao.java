@@ -11,6 +11,7 @@ import java.util.List;
 public interface AccountDao {
     @Insert
     void insertAccount(Account account);
+
     @Query("SELECT * FROM account WHERE uid IN (:userIds)")
     List<Account> loadAllByIds(int[] userIds);
 

@@ -9,16 +9,16 @@ import androidx.room.RoomDatabase;
 
 @Database(entities = {Account.class},version = 1,exportSchema = false)
 public abstract class AccountDataBase extends RoomDatabase {
-    private static final String DB_NAME = "account.db";
-    private static volatile AccountDataBase instance;
+    private static final String DB_NAME = "account";
+    private static AccountDataBase accountInstance;
 
     public static synchronized AccountDataBase getInstance(Context context){
-        if(instance==null) instance = create(context);
-        return instance;
-    }
-
-    private static AccountDataBase create(final Context context){
-        return Room.databaseBuilder(context,AccountDataBase.class,DB_NAME).allowMainThreadQueries().build();
+        if(accountInstance==null){
+            accountInstance = Room
+                            .databaseBuilder(context.getApplicationContext(),AccountDataBase.class,DB_NAME)
+                            .build();
+        }
+        return accountInstance;
     }
 
     public abstract AccountDao getAccountDao();;

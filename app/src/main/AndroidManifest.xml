@@ -12,7 +12,9 @@
         <activity
             android:name=".activity.addActivity.AddActivity"
             android:exported="true"
-            android:theme="@style/Theme.MyAccount.NoActionBar">
+            android:theme="@style/Theme.MyAccount.NoActionBar"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            >
         </activity>
         <activity
             android:name=".activity.CalendarActivity"
