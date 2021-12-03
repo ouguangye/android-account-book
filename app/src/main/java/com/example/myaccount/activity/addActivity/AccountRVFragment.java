@@ -36,6 +36,7 @@ public class AccountRVFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        assert getArguments() != null;
         if(getArguments().getInt("position")==0)return inflater.inflate(R.layout.fragment_outcome_rv, container, false);
         else return inflater.inflate(R.layout.fragment_income_rv, container, false);
     }
@@ -44,10 +45,11 @@ public class AccountRVFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        assert getArguments() != null;
         itemList = getArguments().getParcelableArrayList("list");
 
-        if(getArguments().getInt("position")==0) recyclerView = getActivity().findViewById(R.id.outcome_rv_view);
-        else recyclerView = getActivity().findViewById(R.id.income_rv_view);
+        if(getArguments().getInt("position")==0) recyclerView = requireActivity().findViewById(R.id.outcome_rv_view);
+        else recyclerView = requireActivity().findViewById(R.id.income_rv_view);
         ItemAdapter itemAdapter = new ItemAdapter(itemList);
         recyclerView.setAdapter(itemAdapter);
 
@@ -99,7 +101,7 @@ public class AccountRVFragment extends Fragment {
         listener.send(selected_item);
     }
 
-    public void onAttach(Activity activity) {
+    public void onAttach(@NonNull Activity activity) {
         // TODO Auto-generated method stub
         listener=(SendDataToActivity) activity;
         super.onAttach(activity);
@@ -107,7 +109,7 @@ public class AccountRVFragment extends Fragment {
 
 
     //通信的接口
-    public static interface SendDataToActivity {
-        public void send(Item item);
+    public interface SendDataToActivity {
+        void send(Item item);
     }
 }

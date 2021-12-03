@@ -24,9 +24,9 @@
             <ImageView
                 android:id="@+id/back_to_main"
                 android:clickable="true"
-                android:layout_width="34dp"
-                android:layout_height="34dp"
-                android:src="@drawable/left_arrow"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@mipmap/cross"
                 />
             <com.google.android.material.tabs.TabLayout
                 android:layout_marginLeft="100dp"

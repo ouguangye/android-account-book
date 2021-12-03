@@ -40,6 +40,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
 
     private TabLayout tabLayout;//标题栏
     private ViewPager2 viewPager2;
+    private ImageView BackToMain;
 
     //标题栏点击触发前和触发后的状态
     private final int activeColor = Color.parseColor("#ffffff");
@@ -90,6 +91,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
 
     //初始化点击事件
     protected void initClick() {
+        BackToMain.setOnClickListener(this);
         dateTv.setOnClickListener(this);
         remarkIv.setOnClickListener(this);
     }
@@ -210,6 +212,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         dateTv = findViewById(R.id.tb_note_date);
         cashTv = findViewById(R.id.tb_note_cash);
         remarkIv = findViewById(R.id.tb_note_remark);
+        BackToMain = findViewById(R.id.back_to_main);
         //设置账单日期
         dateTv.setText(days);
         //设置金额
