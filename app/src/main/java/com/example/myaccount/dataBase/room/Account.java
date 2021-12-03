@@ -6,34 +6,49 @@ import androidx.room.PrimaryKey;
 
 @Entity
 public class Account {
+
+    //序列id
     @PrimaryKey(autoGenerate = true)
+    private int sid;
+
+    //用户对应的id
     private int uid;
 
-    @ColumnInfo(name = "date")
-    private String date;
-
-    public String getSign() {
-        return sign;
-    }
-
-    public void setSign(String sign) {
-        this.sign = sign;
-    }
-
+    //符号, 0表示支出，1表示收入
     @ColumnInfo(name = "sign")
-    private String sign;
+    private int sign;
 
+    //类型的名字，以拼音的形式
     @ColumnInfo(name = "type")
     private String type;
 
+    //account的数目
     @ColumnInfo(name = "amount")
     private double amount;
 
-    public Account(String date,String sign,String type,double amount){
+    //创建的时间，只精确到天
+    @ColumnInfo(name = "date")
+    private String date;
+
+    //相关描述
+    @ColumnInfo(name = "des")
+    private String des;
+
+    public Account(int sign,String type,String date,double amount,String des){
         setDate(date);
-        setDate(sign);
+        setSign(sign);
         setType(type);
         setAmount(amount);
+        setDes(des);
+    }
+
+
+    public int getSid() {
+        return sid;
+    }
+
+    public void setSid(int sid) {
+        this.sid = sid;
     }
 
     public int getUid() {
@@ -66,5 +81,21 @@ public class Account {
 
     public void setAmount(double amount) {
         this.amount = amount;
+    }
+
+    public int getSign() {
+        return sign;
+    }
+
+    public void setSign(int sign) {
+        this.sign = sign;
+    }
+
+    public String getDes() {
+        return des;
+    }
+
+    public void setDes(String des) {
+        this.des = des;
     }
 }

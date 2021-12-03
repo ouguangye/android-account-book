@@ -14,7 +14,6 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.myaccount.activity.CalendarActivity;
 import com.example.myaccount.activity.addActivity.AddActivity;
-import com.example.myaccount.dataBase.nomal.DBAccess;
 import com.example.myaccount.databinding.ActivityMainBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -23,7 +22,6 @@ import com.google.android.material.snackbar.Snackbar;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-    public DBAccess dbAccess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

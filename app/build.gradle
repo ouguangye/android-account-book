@@ -47,7 +47,6 @@ dependencies {
 
     implementation 'com.github.siyamed:android-shape-imageview:0.9.+@aar'
     implementation 'com.github.BlackBoxVision:material-calendar-view:v1.5.8'
-    implementation 'org.litepal.android:core:1.6.1'
     implementation 'com.haibin:calendarview:3.6.8'
 
     implementation 'com.hhl:gridpagersnaphelper:1.0.0'
