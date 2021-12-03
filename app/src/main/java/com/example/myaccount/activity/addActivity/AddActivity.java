@@ -36,7 +36,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 
-public class AddActivity extends AppCompatActivity implements View.OnClickListener, SendDataToActivity {
+public class AddActivity extends AppCompatActivity implements View.OnClickListener, AccountRVFragment.SendDataToActivity {
 
     private TabLayout tabLayout;//标题栏
     private ViewPager2 viewPager2;
