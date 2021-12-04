@@ -45,7 +45,7 @@ public class AddActivity extends AppCompatActivity {
         });
 
         tabLayout = findViewById(R.id.tab_layout);
-        viewPager2 = findViewById(R.id.view_pager);
+        viewPager2 = findViewById(R.id.viewpager_item);
 
         final String[] tabs = new String[]{"支出", "收入"};
 

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //创建数据库
-        //accountDataBase = AccountDataBase.getInstance(this);
+        accountDataBase = AccountDataBase.getInstance(this);
 
     }
 
