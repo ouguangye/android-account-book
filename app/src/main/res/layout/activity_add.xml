@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     >
 
     <RelativeLayout
@@ -23,9 +24,9 @@
             <ImageView
                 android:id="@+id/back_to_main"
                 android:clickable="true"
-                android:layout_width="34dp"
-                android:layout_height="34dp"
-                android:src="@drawable/left_arrow"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@mipmap/cross"
                 />
             <com.google.android.material.tabs.TabLayout
                 android:layout_marginLeft="100dp"
@@ -67,17 +68,16 @@
         android:layout_marginTop="10dp"
         android:background="@color/white"
         >
-        
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/view_pager"
-            android:layout_width="match_parent"
-            android:layout_height="180dp"
-            />
 
-        <RelativeLayout
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewpager_item"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <!--<RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="15dp"
-            android:layout_below="@+id/view_pager"
+            android:layout_below="@+id/viewpager_item"
             android:layout_marginTop="10dp">
 
             <LinearLayout
@@ -86,14 +86,17 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:orientation="horizontal" />
-        </RelativeLayout>
+        </RelativeLayout>-->
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/select_layout"
-        android:layout_marginBottom="17dp">
+        android:layout_marginBottom="15dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        >
 
         <EditText
             android:id="@+id/item_tb_type_tv"
@@ -107,7 +110,6 @@
             android:textColor="#333333"
             android:textSize="26sp"
             android:hint="请输入关键词"
-            android:editable="false"
             >
             <requestFocus/>
         </EditText>
@@ -146,7 +148,7 @@
         android:layout_height="wrap_content">
         <TextView
             android:id="@+id/tb_note_cash"
-            android:text="现金"
+            android:text="一般"
             android:background="@drawable/shape_tb_cash"
             android:textSize="15sp"
             android:paddingLeft="20dp"
@@ -160,19 +162,21 @@
             android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
+
         <TextView
             android:id="@+id/tb_note_date"
-            android:background="@drawable/shape_tb_cash"
-            android:text="2021.11.19"
-            android:textSize="15sp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:paddingTop="6dp"
-            android:paddingBottom="7dp"
-            android:layout_marginTop="7dp"
-            android:textColor="@color/white"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:background="@drawable/shape_tb_cash"
+            android:paddingLeft="20dp"
+            android:paddingTop="6dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="7dp"
+            android:text="2021.11.19"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
         <RelativeLayout
             android:layout_weight="1"
             android:layout_width="0dp"

@@ -39,15 +39,18 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
     implementation 'androidx.navigation:navigation-fragment:2.3.5'
     implementation 'androidx.navigation:navigation-ui:2.3.5'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
 
     implementation 'com.github.siyamed:android-shape-imageview:0.9.+@aar'
     implementation 'com.github.BlackBoxVision:material-calendar-view:v1.5.8'
-    implementation 'org.litepal.android:core:1.6.1'
     implementation 'com.haibin:calendarview:3.6.8'
 
+    implementation 'com.hhl:gridpagersnaphelper:1.0.0'
+    implementation 'com.hhl:recyclerviewindicator:1.0.0'
 
     def room_version = "2.3.0"
     implementation "androidx.room:room-runtime:$room_version"
