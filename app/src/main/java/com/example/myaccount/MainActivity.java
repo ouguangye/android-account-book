@@ -60,9 +60,11 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        //创建数据库
-        //accountDataBase = AccountDataBase.getInstance(this);
-
+//        View setting_button = findViewById(R.id.setting);
+//        setting_button.setOnClickListener(view -> {
+//            Intent intent = new Intent(MainActivity.this,SettingActivity.class);
+//            startActivity(intent);
+//        });
     }
 
     //右上角三个点的设置。这里取消了原有的bar,所以此处代码没有用

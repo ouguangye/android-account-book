@@ -60,6 +60,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     private ImageView remarkIv;   //
     private  TextView confirmIv;//确认键
     private EditText desIv;//输入框
+    private ImageView clearIv;//清空键
 
     //计算器
     protected boolean isDot;
@@ -106,6 +107,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         dateTv.setOnClickListener(this);
         remarkIv.setOnClickListener(this);
         confirmIv.setOnClickListener(this);
+        clearIv.setOnClickListener(this);
     }
 
     //初始化支出的图标
@@ -227,6 +229,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         BackToMain = findViewById(R.id.back_to_main);
         confirmIv = findViewById(R.id.tb_calc_num_done);
         desIv = findViewById(R.id.item_tb_type_tv);
+        clearIv = findViewById(R.id.tb_note_clear);
         //设置账单日期
         dateTv.setText(days);
         //设置金额
@@ -401,11 +404,8 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
 
     //清空
     public void clear(){
-        moneyTv.setText("0.00");
+        doClear();
         desIv.setText("");
-        num = "0";               //整数部分
-        dotNum = ".00";
-        isDot = false;
     }
 
     //所有点击事件

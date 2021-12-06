@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SettingActivity"
+    android:background="@color/material_grey_100"
+    >
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="345dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center_horizontal|fill|fill_horizontal|center_vertical|fill_vertical|end"
+        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+        android:top="30dp"
+        android:background="@color/white"
+        app:cardCornerRadius="10dp">
+
+    </androidx.cardview.widget.CardView>
+</LinearLayout>
