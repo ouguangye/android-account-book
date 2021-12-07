@@ -32,16 +32,21 @@ public class Account {
     @ColumnInfo(name = "date",typeAffinity = ColumnInfo.TEXT)
     private String date;
 
+    //已使用天数
+    @ColumnInfo(name = "days",typeAffinity = ColumnInfo.INTEGER)
+    private int days;
+
     //相关描述
     @ColumnInfo(name = "des",typeAffinity = ColumnInfo.TEXT)
     private String des;
 
-    public Account(int uid,int sign,String type,double amount,String date,String des){
+    public Account(int uid,int sign,String type,double amount,String date,int days ,String des){
         setUid(uid);
         setDate(date);
         setSign(sign);
         setType(type);
         setAmount(amount);
+        setDays(days);
         setDes(des);
     }
 
@@ -101,4 +106,8 @@ public class Account {
     public void setDes(String des) {
         this.des = des;
     }
+
+    public int getDays() {return days;}
+
+    public void setDays(int days) {this.days = days;}
 }

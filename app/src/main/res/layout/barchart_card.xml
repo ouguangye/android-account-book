@@ -12,7 +12,6 @@
 
         <TextView
             android:id="@+id/bar_card_title"
-            android:text="AAAA"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginStart="20dp"
