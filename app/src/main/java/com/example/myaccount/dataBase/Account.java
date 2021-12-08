@@ -40,7 +40,7 @@ public class Account {
     @ColumnInfo(name = "des",typeAffinity = ColumnInfo.TEXT)
     private String des;
 
-    public Account(int uid,int sign,String type,double amount,String date,int days ,String des){
+    public Account(int uid,int sign,String type,double amount,String date,int days,String des){
         setUid(uid);
         setDate(date);
         setSign(sign);

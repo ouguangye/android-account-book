@@ -78,7 +78,7 @@ public class BarCard extends LinearLayout{
         XAxis xAxis = barChart.getXAxis();
         BarData barData;
         BarDataSet barDataSet;
-        if (accounts7 == null){
+        if (accounts7.length == 0){
             this.setVisibility(View.GONE);
             return;
         }
@@ -93,20 +93,22 @@ public class BarCard extends LinearLayout{
         switch (choice) {
             case 0:
                 for (int i = 0; i < 7; ++i) {
-                    Log.d("!!","aaa");
+                    Log.i("!!","aaa");
                     float avg = 0;
                     int size = 0;
                     for (Account acc : accounts7){
-                        Log.d("!!","abb");
-                        if (acc.getDays() > numOfDays-6+i)
-                            break;
-                        if (acc.getDays() < numOfDays-6+i)
-                            continue;
+                        Log.i("!!","abb");
+
+//                        if (acc.getDays() > numOfDays-6+i)
+//                            break;
+//                        if (acc.getDays() < numOfDays-6+i)
+//                            continue;
                         if (acc.getSign() == 0) {avg += acc.getAmount();Log.d("!!!!!!", String.valueOf(acc.getAmount())); size++;}
                     }
-                    avg /= size;
+//                    avg /= size;
                     out7[i] = avg;
                     outBarEntries.add(new BarEntry(x7[i], out7[i]));
+                    System.out.println(accounts7[0].getAmount());
                 }
                 xAxis.setValueFormatter(new WeekXAxisFormatter());
                 barDataSet = new BarDataSet(outBarEntries, "outcome");
@@ -343,9 +345,8 @@ public class BarCard extends LinearLayout{
         }
 
         public void queryAccountLastDays() {
-            accounts7 = accountDao.queryLastDays(numOfDay-7);
-            if (accounts7 == null)
-                Log.d("dasgasfhbsfgsfdahwefh",String.valueOf(numOfDays));
+            accounts7 = accountDao.queryAll();
+            System.out.println(accounts7.length);
             accounts15 = accountDao.queryLastDays(numOfDay-15);
         }
 
@@ -356,18 +357,19 @@ public class BarCard extends LinearLayout{
             if (numOfDay > 0) {
                 queryAccountLastDays();
             }
+            accountDataBase.close();
+            publishProgress();
             return null;
         }
 
         @Override
         protected void onProgressUpdate(Void... avoid){
+            refreshBarChart(0, accounts7, accounts15, numOfDays);
             super.onProgressUpdate(avoid);
         }
 
         @Override
         protected void onPostExecute(Void aVoid){
-            accountDataBase.close();
-            refreshBarChart(0, accounts7, accounts15, numOfDays);
             super.onPostExecute(aVoid);
         }
     }

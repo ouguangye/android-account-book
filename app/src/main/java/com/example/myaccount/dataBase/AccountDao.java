@@ -23,7 +23,7 @@ public interface AccountDao {
     @Query("SELECT date FROM account")
     public String queryDate();
 
-    @Query("SELECT * FROM account WHERE days>:days")
+    @Query("SELECT * FROM account WHERE days > :days")
     public Account[] queryLastDays(int days);
 
     @Query("SELECT * FROM account WHERE date LIKE :month")

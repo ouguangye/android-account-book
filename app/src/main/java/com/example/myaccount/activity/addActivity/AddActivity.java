@@ -8,11 +8,13 @@ import static com.example.myaccount.util.DateUtils.FORMAT_YMD;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.SyncAdapterType;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -85,7 +87,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     protected int mMonth;
     protected int mDay;
     protected String days;
-    protected int numOfDay;
+    protected int numOfDays;
 
     //备注
     protected String remarkInput = "";
@@ -196,7 +198,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
 
     //计算天数值（从1900年1月1日开始）
     private int calNumOfDays(Date date) throws Exception{
-        SimpleDateFormat staF = new SimpleDateFormat("1900-01-01");
+        SimpleDateFormat staF = new SimpleDateFormat("yyyy-mm-dd");
         Date sta = staF.parse("1900-01-01");
         date.setHours(0);
         date.setMinutes(0);
@@ -214,7 +216,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         days = DateUtils.getCurDateStr("yyyy-MM-dd");
         SimpleDateFormat sdf = new SimpleDateFormat(days);
         Date calHelp = sdf.parse(days);
-        numOfDay = calNumOfDays(calHelp);
+        numOfDays = calNumOfDays(calHelp);
         bundle = getIntent().getBundleExtra("bundle");
 
         if (bundle != null) {    //edit
@@ -398,7 +400,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
 
             }
             dateTv.setText(days);
-            SimpleDateFormat sdf = new SimpleDateFormat(days);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
             Date calHelp = null;
             try {
                 calHelp = sdf.parse(days);
@@ -406,22 +408,25 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
                 e.printStackTrace();
             }
             try {
-                numOfDay = calNumOfDays(calHelp);
+                numOfDays = calNumOfDays(calHelp);
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
         }, mYear, mMonth, mDay).show();
     }
 
     //提交
     public void doCommit(){
         @SuppressLint("SimpleDateFormat") final SimpleDateFormat sdf = new SimpleDateFormat(" HH:mm:ss");
-        final String crDate = days + sdf.format(new Date());
+//        System.out.println(days);
+        System.out.println(numOfDays);
+        final String crDate = days;
         if ((num + dotNum).equals("0.00")) {
             Toast.makeText(this, "抱歉，你还没输入金额", Toast.LENGTH_SHORT).show();
         }
         else{
-            new InsertAccountTask(currentPosition,selected_item.getType(),Double.parseDouble((String) moneyTv.getText()),crDate,desIv.getText().toString()).execute();
+            new InsertAccountTask(currentPosition,selected_item.getType(),Double.parseDouble((String) moneyTv.getText()),crDate,numOfDays,desIv.getText().toString()).execute();
             Toast.makeText(this,"添加成功",Toast.LENGTH_SHORT).show();
         }
     }
@@ -544,17 +549,21 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         double amount;
         String date;
         String des;
+        int numOfDay;
 
-       public InsertAccountTask(int sign,String type,double amount,String date,String des){
+       public InsertAccountTask(int sign,String type,double amount,String date,int numOfDay,String des){
             this.sign = sign;
             this.type = type;
             this.amount = amount;
             this.date = date;
             this.des = des;
+            this.numOfDay = numOfDay;
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
+//            System.out.println(date);
+            Log.d("!1!!", String.valueOf(numOfDay));
             accountDataBase.getAccountDao().insertAccount(new Account(0,sign,type,amount,date,numOfDay,des));
             return null;
         }
