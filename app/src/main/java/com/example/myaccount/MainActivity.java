@@ -5,13 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -20,11 +17,9 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.myaccount.activity.CalendarActivity;
 import com.example.myaccount.activity.addActivity.AddActivity;
-import com.example.myaccount.dataBase.AccountDataBase;
+import com.example.myaccount.dataBase.DataBase;
 import com.example.myaccount.databinding.ActivityMainBinding;
-import com.example.myaccount.ui.home.HomeFragment;
 import com.example.myaccount.ui.home.HomeViewModel;
-import com.github.mikephil.charting.charts.BarChart;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
@@ -32,7 +27,7 @@ import com.google.android.material.snackbar.Snackbar;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-    private AccountDataBase accountDataBase;
+    private DataBase accountDataBase;
     private HomeViewModel homeViewModel;
 
     @Override
@@ -70,9 +65,21 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+//        View setting_button = findViewById(R.id.setting);
+//        setting_button.setOnClickListener(view -> {
+//            Intent intent = new Intent(MainActivity.this,SettingActivity.class);
+//            startActivity(intent);
+//        });
 
         //创建数据库
+<<<<<<< HEAD
         accountDataBase = AccountDataBase.getInstance(this);
+=======
+        accountDataBase = DataBase.getInstance(this);
+
+        //操作碎片
+        homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
+>>>>>>> 85794db88146d1fd9c08522f947f4f236568a4e5
     }
 
     //右上角三个点的设置。这里取消了原有的bar,所以此处代码没有用
@@ -100,6 +107,5 @@ public class MainActivity extends AppCompatActivity {
         };
         homeViewModel.getContext().observe(this, contextObserver);
     }
-
 
 }

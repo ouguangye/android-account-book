@@ -10,8 +10,8 @@
 
     <com.github.siyamed.shapeimageview.CircularImageView
         android:id="@+id/avatar"
-        android:layout_width="132dp"
-        android:layout_height="143dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="35dp"
         android:contentDescription="@string/nav_header_desc"
@@ -28,7 +28,7 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="1dp"
         android:paddingTop="@dimen/nav_header_vertical_spacing"

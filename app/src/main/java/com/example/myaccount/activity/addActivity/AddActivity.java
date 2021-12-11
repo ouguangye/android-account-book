@@ -8,7 +8,6 @@ import static com.example.myaccount.util.DateUtils.FORMAT_YMD;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.content.SyncAdapterType;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -30,9 +29,9 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.myaccount.MainActivity;
 import com.example.myaccount.R;
-import com.example.myaccount.dataBase.Account;
-import com.example.myaccount.dataBase.AccountDao;
-import com.example.myaccount.dataBase.AccountDataBase;
+import com.example.myaccount.dataBase.account.Account;
+import com.example.myaccount.dataBase.account.AccountDao;
+import com.example.myaccount.dataBase.DataBase;
 import com.example.myaccount.util.DateUtils;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -42,7 +41,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 
 public class AddActivity extends AppCompatActivity implements View.OnClickListener, AccountRVFragment.SendDataToActivity {
@@ -66,6 +64,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     private ImageView remarkIv;   //
     private  TextView confirmIv;//确认键
     private EditText desIv;//输入框
+    private ImageView clearIv;//清空键
 
     //计算器
     protected boolean isDot;
@@ -103,7 +102,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     private final ArrayList<Item> IncomeItemList = new ArrayList<>();
 
     //数据库
-    private AccountDataBase accountDataBase;
+    private DataBase accountDataBase;
 
     //初始化点击事件
     protected void initClick() {
@@ -111,6 +110,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         dateTv.setOnClickListener(this);
         remarkIv.setOnClickListener(this);
         confirmIv.setOnClickListener(this);
+        clearIv.setOnClickListener(this);
     }
 
     //初始化图标
@@ -248,6 +248,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         BackToMain = findViewById(R.id.back_to_main);
         confirmIv = findViewById(R.id.tb_calc_num_done);
         desIv = findViewById(R.id.item_tb_type_tv);
+        clearIv = findViewById(R.id.tb_note_clear);
         //设置账单日期
         dateTv.setText(days);
         //设置金额
@@ -438,11 +439,8 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
 
     //清空
     public void clear(){
-        moneyTv.setText("0.00");
+        doClear();
         desIv.setText("");
-        num = "0";               //整数部分
-        dotNum = ".00";
-        isDot = false;
     }
 
     //所有点击事件
@@ -532,7 +530,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         initClick();
 
         //数据库实例化
-        accountDataBase = AccountDataBase.getInstance(this);
+        accountDataBase = DataBase.getInstance(this);
 
         //连接
         connectedTabAndViewpager();

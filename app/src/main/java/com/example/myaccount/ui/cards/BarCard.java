@@ -20,10 +20,16 @@ import androidx.room.Room;
 
 import com.example.myaccount.AppContext;
 import com.example.myaccount.R;
+<<<<<<< HEAD
 import com.example.myaccount.dataBase.Account;
 import com.example.myaccount.dataBase.AccountDao;
 import com.example.myaccount.dataBase.AccountDataBase;
 import com.example.myaccount.util.FifteenXAxisFormatter;
+=======
+import com.example.myaccount.dataBase.account.Account;
+import com.example.myaccount.dataBase.account.AccountDao;
+import com.example.myaccount.dataBase.DataBase;
+>>>>>>> 85794db88146d1fd9c08522f947f4f236568a4e5
 import com.example.myaccount.util.WeekXAxisFormatter;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Description;
@@ -44,7 +50,7 @@ public class BarCard extends CardView {
     private BarChart barChart;
     private Context context;
     private Dialog bottomDialog;
-    private AccountDataBase db;
+    private DataBase db;
     public Account[] accounts7;
     public Account[] accounts15;
     private int numOfDays = 0;
@@ -299,7 +305,11 @@ public class BarCard extends CardView {
     }
 
     public void refresh(){
+<<<<<<< HEAD
         db = AccountDataBase.getInstance(AppContext.getContext());
+=======
+        db = Room.inMemoryDatabaseBuilder(getContext(), DataBase.class).build();
+>>>>>>> 85794db88146d1fd9c08522f947f4f236568a4e5
         QueryLastDayTask task = new QueryLastDayTask(db,numOfDays);
         task.execute();
     }
@@ -319,7 +329,11 @@ public class BarCard extends CardView {
         } catch (Exception e) {
             e.printStackTrace();
         }
+<<<<<<< HEAD
         db = AccountDataBase.getInstance(context);
+=======
+        db = Room.inMemoryDatabaseBuilder(context, DataBase.class).build();
+>>>>>>> 85794db88146d1fd9c08522f947f4f236568a4e5
         QueryLastDayTask task = new QueryLastDayTask(db, numOfDays);
         task.execute();
     }
@@ -327,11 +341,11 @@ public class BarCard extends CardView {
     @SuppressLint("StaticFieldLeak")
     private class QueryLastDayTask extends AsyncTask<Void, Void, Void>{
 
-        private AccountDataBase accountDataBase;
+        private DataBase accountDataBase;
         private AccountDao accountDao;
         private int numOfDay = 0;
 
-        public QueryLastDayTask(AccountDataBase accountDataBase, int numOfDay){
+        public QueryLastDayTask(DataBase accountDataBase, int numOfDay){
             this.accountDataBase = accountDataBase;
             this.numOfDay = numOfDay;
         }
