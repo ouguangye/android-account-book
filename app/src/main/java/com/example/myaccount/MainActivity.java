@@ -74,12 +74,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-//        View setting_button = findViewById(R.id.setting);
-//        setting_button.setOnClickListener(view -> {
-//            Intent intent = new Intent(MainActivity.this,SettingActivity.class);
-//            startActivity(intent);
-//        });
-
         //创建数据库
         accountDataBase = DataBase.getInstance(this);
 
