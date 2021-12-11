@@ -16,9 +16,9 @@ import android.widget.TextView;
 import androidx.room.Room;
 
 import com.example.myaccount.R;
-import com.example.myaccount.dataBase.Account;
-import com.example.myaccount.dataBase.AccountDao;
-import com.example.myaccount.dataBase.AccountDataBase;
+import com.example.myaccount.dataBase.account.Account;
+import com.example.myaccount.dataBase.account.AccountDao;
+import com.example.myaccount.dataBase.DataBase;
 import com.example.myaccount.util.WeekXAxisFormatter;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Description;
@@ -39,7 +39,7 @@ public class BarCard extends LinearLayout{
     private BarChart barChart;
     private Context context;
     private Dialog bottomDialog;
-    private AccountDataBase db;
+    private DataBase db;
     public Account[] accounts7;
     public Account[] accounts15;
     private int numOfDays = 0;
@@ -308,7 +308,7 @@ public class BarCard extends LinearLayout{
     }
 
     public void refresh(){
-        db = Room.inMemoryDatabaseBuilder(getContext(), AccountDataBase.class).build();
+        db = Room.inMemoryDatabaseBuilder(getContext(), DataBase.class).build();
         QueryLastDayTask task = new QueryLastDayTask(db,numOfDays);
         task.execute();
     }
@@ -328,18 +328,18 @@ public class BarCard extends LinearLayout{
         } catch (Exception e) {
             e.printStackTrace();
         }
-        db = Room.inMemoryDatabaseBuilder(context, AccountDataBase.class).build();
+        db = Room.inMemoryDatabaseBuilder(context, DataBase.class).build();
         QueryLastDayTask task = new QueryLastDayTask(db, numOfDays);
         task.execute();
     }
 
     private class QueryLastDayTask extends AsyncTask<Void, Void, Void>{
 
-        private AccountDataBase accountDataBase;
+        private DataBase accountDataBase;
         private AccountDao accountDao;
         private int numOfDay = 0;
 
-        public QueryLastDayTask(AccountDataBase accountDataBase, int numOfDay){
+        public QueryLastDayTask(DataBase accountDataBase, int numOfDay){
             this.accountDataBase = accountDataBase;
             this.numOfDay = numOfDay;
         }

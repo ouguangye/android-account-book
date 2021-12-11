@@ -29,9 +29,9 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.myaccount.MainActivity;
 import com.example.myaccount.R;
-import com.example.myaccount.dataBase.Account;
-import com.example.myaccount.dataBase.AccountDao;
-import com.example.myaccount.dataBase.AccountDataBase;
+import com.example.myaccount.dataBase.account.Account;
+import com.example.myaccount.dataBase.account.AccountDao;
+import com.example.myaccount.dataBase.DataBase;
 import com.example.myaccount.util.DateUtils;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -102,7 +102,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     private final ArrayList<Item> IncomeItemList = new ArrayList<>();
 
     //数据库
-    private AccountDataBase accountDataBase;
+    private DataBase accountDataBase;
 
     //初始化点击事件
     protected void initClick() {
@@ -525,7 +525,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         initClick();
 
         //数据库实例化
-        accountDataBase = AccountDataBase.getInstance(this);
+        accountDataBase = DataBase.getInstance(this);
 
         //连接
         connectedTabAndViewpager();

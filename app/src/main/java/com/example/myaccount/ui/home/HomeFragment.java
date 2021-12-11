@@ -13,7 +13,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.room.Room;
 
-import com.example.myaccount.dataBase.AccountDataBase;
+import com.example.myaccount.dataBase.DataBase;
 import com.example.myaccount.databinding.FragmentHomeBinding;
 import com.example.myaccount.ui.cards.BarCard;
 
@@ -22,7 +22,7 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     private LinearLayout test;
     private BarCard card;
-    private AccountDataBase accountDataBase;
+    private DataBase accountDataBase;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -32,7 +32,7 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         test = binding.testss;
-        accountDataBase = Room.inMemoryDatabaseBuilder(getContext(), AccountDataBase.class).allowMainThreadQueries().build();
+        accountDataBase = Room.inMemoryDatabaseBuilder(getContext(), DataBase.class).allowMainThreadQueries().build();
         homeViewModel.getContext().observe(getViewLifecycleOwner(), new Observer<Context>() {
             @Override
             public void onChanged(Context context) {

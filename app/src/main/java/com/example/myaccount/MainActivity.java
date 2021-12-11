@@ -14,10 +14,10 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import com.github.mikephil.charting.charts.BarChart;
+
 import com.example.myaccount.activity.CalendarActivity;
 import com.example.myaccount.activity.addActivity.AddActivity;
-import com.example.myaccount.dataBase.AccountDataBase;
+import com.example.myaccount.dataBase.DataBase;
 import com.example.myaccount.databinding.ActivityMainBinding;
 import com.example.myaccount.ui.home.HomeViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -27,7 +27,7 @@ import com.google.android.material.snackbar.Snackbar;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-    private AccountDataBase accountDataBase;
+    private DataBase accountDataBase;
     private HomeViewModel homeViewModel;
 
     @Override
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 //        });
 
         //创建数据库
-        accountDataBase = AccountDataBase.getInstance(this);
+        accountDataBase = DataBase.getInstance(this);
 
         //操作碎片
         homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
