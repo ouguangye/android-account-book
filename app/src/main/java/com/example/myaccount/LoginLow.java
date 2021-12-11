@@ -42,8 +42,7 @@ public class LoginLow extends AppCompatActivity {
             else{
                 new getUser(usernameInput.getText().toString(),passwordInput.getText().toString()).execute();
                 if(flag){
-                    Intent intent = new Intent(LoginLow.this,MainActivity.class);
-                    startActivity(intent);
+
                 }
                 else{
                     Toast.makeText(this,"用户名或密码错误",Toast.LENGTH_SHORT).show();
@@ -73,6 +72,7 @@ public class LoginLow extends AppCompatActivity {
                 flag = true;
                 user = u.get(0);
                 Intent intent = new Intent(LoginLow.this,MainActivity.class);
+                intent.putExtra("user", user);
                 startActivity(intent);
             }
             return null;

@@ -32,6 +32,7 @@ import com.example.myaccount.R;
 import com.example.myaccount.dataBase.account.Account;
 import com.example.myaccount.dataBase.account.AccountDao;
 import com.example.myaccount.dataBase.DataBase;
+import com.example.myaccount.dataBase.user.User;
 import com.example.myaccount.util.DateUtils;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -49,6 +50,9 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     private TabLayout tabLayout;//标题栏
     private ViewPager2 viewPager2;
     private ImageView BackToMain;
+
+    //用户id
+    private int uid;
 
     //标题栏点击触发前和触发后的状态
     private final int activeColor = Color.parseColor("#ffffff");
@@ -524,6 +528,12 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         initWidget();
         initClick();
 
+        //得到用户id
+        Intent intent1 = getIntent();
+        User user = intent1.getParcelableExtra("user");
+        uid = user.getSid();
+        Log.d("uid",String.valueOf(uid));
+
         //数据库实例化
         accountDataBase = DataBase.getInstance(this);
 
@@ -562,7 +572,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         protected Void doInBackground(Void... voids) {
 //            System.out.println(date);
             Log.d("!1!!", String.valueOf(numOfDay));
-            accountDataBase.getAccountDao().insertAccount(new Account(0,sign,type,amount,date,numOfDay,des));
+            accountDataBase.getAccountDao().insertAccount(new Account(uid,sign,type,amount,date,numOfDay,des));
             return null;
         }
 

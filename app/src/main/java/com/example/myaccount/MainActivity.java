@@ -3,6 +3,7 @@ package com.example.myaccount;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.widget.ImageView;
 
@@ -18,6 +19,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.myaccount.activity.CalendarActivity;
 import com.example.myaccount.activity.addActivity.AddActivity;
 import com.example.myaccount.dataBase.DataBase;
+import com.example.myaccount.dataBase.user.User;
 import com.example.myaccount.databinding.ActivityMainBinding;
 import com.example.myaccount.ui.home.HomeViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -29,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private DataBase accountDataBase;
     private HomeViewModel homeViewModel;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,11 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+        //获取登录页面传来的值
+        Intent intent1 = getIntent();
+        user = intent1.getParcelableExtra("user");
+        Log.d("user",user.getName());
+
 
         //跳转到日历页面
         ImageView calendar = this.findViewById(R.id.calendar);
@@ -62,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         FloatingActionButton add_button =  findViewById(R.id.fab);
         add_button.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, AddActivity.class);
+            intent.putExtra("user", user);
             startActivity(intent);
         });
 
