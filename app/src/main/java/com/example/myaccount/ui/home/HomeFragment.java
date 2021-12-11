@@ -1,5 +1,6 @@
 package com.example.myaccount.ui.home;
 
+import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.room.Room;
 
+import com.example.myaccount.AppContext;
 import com.example.myaccount.dataBase.DataBase;
 import com.example.myaccount.databinding.FragmentHomeBinding;
 import com.example.myaccount.ui.cards.BarCard;
@@ -32,11 +34,7 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         test = binding.testss;
-<<<<<<< HEAD
-        accountDataBase = Room.inMemoryDatabaseBuilder(getContext(), AccountDataBase.class).build();
-=======
         accountDataBase = Room.inMemoryDatabaseBuilder(getContext(), DataBase.class).allowMainThreadQueries().build();
->>>>>>> 85794db88146d1fd9c08522f947f4f236568a4e5
         homeViewModel.getContext().observe(getViewLifecycleOwner(), new Observer<Context>() {
             @Override
             public void onChanged(Context context) {

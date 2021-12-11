@@ -12,7 +12,7 @@ public class AppContext extends Application {
         context = getApplicationContext();
     }
 
-    public static Context getContext()
+    public Context getContext()
     {
         return context;
     }

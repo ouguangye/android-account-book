@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,18 +17,11 @@ import android.widget.TextView;
 import androidx.cardview.widget.CardView;
 import androidx.room.Room;
 
-import com.example.myaccount.AppContext;
 import com.example.myaccount.R;
-<<<<<<< HEAD
-import com.example.myaccount.dataBase.Account;
-import com.example.myaccount.dataBase.AccountDao;
-import com.example.myaccount.dataBase.AccountDataBase;
 import com.example.myaccount.util.FifteenXAxisFormatter;
-=======
 import com.example.myaccount.dataBase.account.Account;
 import com.example.myaccount.dataBase.account.AccountDao;
 import com.example.myaccount.dataBase.DataBase;
->>>>>>> 85794db88146d1fd9c08522f947f4f236568a4e5
 import com.example.myaccount.util.WeekXAxisFormatter;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Description;
@@ -44,7 +36,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class BarCard extends CardView {
+public class BarCard extends LinearLayout {
     private TextView barTitle;
     private ImageView barOption;
     private BarChart barChart;
@@ -305,11 +297,7 @@ public class BarCard extends CardView {
     }
 
     public void refresh(){
-<<<<<<< HEAD
-        db = AccountDataBase.getInstance(AppContext.getContext());
-=======
-        db = Room.inMemoryDatabaseBuilder(getContext(), DataBase.class).build();
->>>>>>> 85794db88146d1fd9c08522f947f4f236568a4e5
+        db = DataBase.getInstance(context);
         QueryLastDayTask task = new QueryLastDayTask(db,numOfDays);
         task.execute();
     }
@@ -329,11 +317,7 @@ public class BarCard extends CardView {
         } catch (Exception e) {
             e.printStackTrace();
         }
-<<<<<<< HEAD
-        db = AccountDataBase.getInstance(context);
-=======
-        db = Room.inMemoryDatabaseBuilder(context, DataBase.class).build();
->>>>>>> 85794db88146d1fd9c08522f947f4f236568a4e5
+        db = DataBase.getInstance(context);
         QueryLastDayTask task = new QueryLastDayTask(db, numOfDays);
         task.execute();
     }
