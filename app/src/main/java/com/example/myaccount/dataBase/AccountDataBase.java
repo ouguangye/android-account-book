@@ -21,5 +21,5 @@ public abstract class AccountDataBase extends RoomDatabase {
         return accountInstance;
     }
 
-    public abstract AccountDao getAccountDao();;
+    public abstract AccountDao getAccountDao();
 }

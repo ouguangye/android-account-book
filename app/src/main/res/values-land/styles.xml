@@ -205,4 +205,14 @@
         <item name="android:textSize">@dimen/text20</item>
     </style>
 
+    <style name="BottomDialog" parent="@style/Theme.AppCompat.Light">
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="BottomDialog.Animation" parent="Animation.Design.BottomSheetDialog">
+        <item name="android:windowEnterAnimation">@anim/tranlate_dialog_in</item>
+        <item name="android:windowExitAnimation">@anim/translate_dialog_out</item>
+    </style>
+
 </resources>

@@ -13,6 +13,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -29,19 +30,22 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.example.myaccount.MainActivity;
 import com.example.myaccount.R;
 import com.example.myaccount.dataBase.Account;
+import com.example.myaccount.dataBase.AccountDao;
 import com.example.myaccount.dataBase.AccountDataBase;
 import com.example.myaccount.util.DateUtils;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
 
 public class AddActivity extends AppCompatActivity implements View.OnClickListener, AccountRVFragment.SendDataToActivity {
-
+    //使用Dao访问数据库
+    private AccountDao accountDao;
     private TabLayout tabLayout;//标题栏
     private ViewPager2 viewPager2;
     private ImageView BackToMain;
@@ -82,6 +86,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     protected int mMonth;
     protected int mDay;
     protected String days;
+    protected int numOfDays;
 
     //备注
     protected String remarkInput = "";
@@ -99,8 +104,6 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
     //数据库
     private AccountDataBase accountDataBase;
 
-    //初始化
-
     //初始化点击事件
     protected void initClick() {
         BackToMain.setOnClickListener(this);
@@ -110,7 +113,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         clearIv.setOnClickListener(this);
     }
 
-    //初始化支出的图标
+    //初始化图标
     protected void initIcons(){
         initIncomeItems();
         initOutcomeItems();
@@ -175,7 +178,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         OutcomeItemList.add(qita);
 
     }
-    //初始化支出的图标列表
+    //初始化收入的图标列表
     public void initIncomeItems(){
         Item gongzi = new Item("工资","gongzi",R.mipmap.gongzi_grey,R.mipmap.gongzi_blue,0);
         IncomeItemList.add(gongzi);
@@ -193,15 +196,27 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         IncomeItemList.add(shenghuofei);
     }
 
+    //计算天数值（从1900年1月1日开始）
+    private int calNumOfDays(Date date) throws Exception{
+        SimpleDateFormat staF = new SimpleDateFormat("yyyy-mm-dd");
+        Date sta = staF.parse("1900-01-01");
+        date.setHours(0);
+        date.setMinutes(0);
+        date.setSeconds(0);
+        return (int)((date.getTime()-sta.getTime())/(24*3600*1000));
+    }
+
     //初始化数据
-    protected void initData(Bundle savedInstanceState) {
+    protected void initData(Bundle savedInstanceState) throws Exception{
         //设置日期选择器初始日期
         mYear = Integer.parseInt(DateUtils.getCurYear(FORMAT_Y));
         mMonth = Integer.parseInt(DateUtils.getCurMonth(FORMAT_M));
         mDay = Integer.parseInt(DateUtils.getCurDay(FORMAT_D));
         //设置当前 日期
         days = DateUtils.getCurDateStr("yyyy-MM-dd");
-
+        SimpleDateFormat sdf = new SimpleDateFormat(days);
+        Date calHelp = sdf.parse(days);
+        numOfDays = calNumOfDays(calHelp);
         bundle = getIntent().getBundleExtra("bundle");
 
         if (bundle != null) {    //edit
@@ -386,18 +401,33 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
 
             }
             dateTv.setText(days);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+            Date calHelp = null;
+            try {
+                calHelp = sdf.parse(days);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            try {
+                numOfDays = calNumOfDays(calHelp);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
         }, mYear, mMonth, mDay).show();
     }
 
     //提交
     public void doCommit(){
         @SuppressLint("SimpleDateFormat") final SimpleDateFormat sdf = new SimpleDateFormat(" HH:mm:ss");
-        final String crDate = days + sdf.format(new Date());
+//        System.out.println(days);
+        System.out.println(numOfDays);
+        final String crDate = days;
         if ((num + dotNum).equals("0.00")) {
             Toast.makeText(this, "抱歉，你还没输入金额", Toast.LENGTH_SHORT).show();
         }
         else{
-            new InsertAccountTask(currentPosition,selected_item.getType(),Double.parseDouble((String) moneyTv.getText()),crDate,desIv.getText().toString()).execute();
+            new InsertAccountTask(currentPosition,selected_item.getType(),Double.parseDouble((String) moneyTv.getText()),crDate,numOfDays,desIv.getText().toString()).execute();
             Toast.makeText(this,"添加成功",Toast.LENGTH_SHORT).show();
         }
     }
@@ -486,7 +516,11 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
 
         //调用初始化函数
         initIcons();
-        initData(savedInstanceState);
+        try {
+            initData(savedInstanceState);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         initWidget();
         initClick();
 
@@ -513,18 +547,22 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         double amount;
         String date;
         String des;
+        int numOfDay;
 
-       public InsertAccountTask(int sign,String type,double amount,String date,String des){
+       public InsertAccountTask(int sign,String type,double amount,String date,int numOfDay,String des){
             this.sign = sign;
             this.type = type;
             this.amount = amount;
             this.date = date;
             this.des = des;
+            this.numOfDay = numOfDay;
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
-            accountDataBase.getAccountDao().insertAccount(new Account(0,sign,type,amount,date,des));
+//            System.out.println(date);
+            Log.d("!1!!", String.valueOf(numOfDay));
+            accountDataBase.getAccountDao().insertAccount(new Account(0,sign,type,amount,date,numOfDay,des));
             return null;
         }
 

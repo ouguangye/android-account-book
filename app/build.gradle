@@ -44,6 +44,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
+    implementation 'android.arch.lifecycle:extensions:1.1.1'
 
     implementation 'com.github.siyamed:android-shape-imageview:0.9.+@aar'
     implementation 'com.github.BlackBoxVision:material-calendar-view:v1.5.8'
@@ -51,6 +52,8 @@ dependencies {
 
     implementation 'com.hhl:gridpagersnaphelper:1.0.0'
     implementation 'com.hhl:recyclerviewindicator:1.0.0'
+
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
     def room_version = "2.3.0"
     implementation "androidx.room:room-runtime:$room_version"
