@@ -10,13 +10,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyAccount">
         <activity
+            android:name=".ui.login.LoginActivity"
+            android:exported="true"
+            android:label="@string/title_activity_login" />
+        <activity
             android:name=".SettingActivity"
             android:exported="true" />
         <activity
             android:name=".activity.addActivity.AddActivity"
             android:exported="true"
             android:theme="@style/Theme.MyAccount.NoActionBar"
-            android:windowSoftInputMode="adjustPan|stateHidden"></activity>
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name=".activity.CalendarActivity"
             android:exported="true"
