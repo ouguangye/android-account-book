@@ -1,5 +1,6 @@
 package com.example.myaccount.ui.home;
 
+import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.room.Room;
 
+import com.example.myaccount.AppContext;
 import com.example.myaccount.dataBase.DataBase;
 import com.example.myaccount.databinding.FragmentHomeBinding;
 import com.example.myaccount.ui.cards.BarCard;

@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <!-- Base application theme. -->
@@ -205,9 +206,11 @@
         <item name="android:textSize">@dimen/text20</item>
     </style>
 
-    <style name="BottomDialog" parent="@style/Theme.AppCompat.Light">
+    <style name="BottomDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowIsFloating">true</item>
+<!--        <item name="android:backgroundDimEnabled">true</item>-->
         <item name="android:windowBackground">@color/transparent</item>
-        <item name="windowNoTitle">true</item>
+        <item name="windowNoTitle">false</item>
     </style>
 
     <style name="BottomDialog.Animation" parent="Animation.Design.BottomSheetDialog">
