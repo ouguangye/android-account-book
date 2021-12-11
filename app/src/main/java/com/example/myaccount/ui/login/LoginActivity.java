@@ -121,6 +121,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void updateUiWithUser(LoggedInUserView model) {
+
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
     }
@@ -128,4 +129,6 @@ public class LoginActivity extends AppCompatActivity {
     private void showLoginFailed(@StringRes Integer errorString) {
         Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
     }
+
+
 }

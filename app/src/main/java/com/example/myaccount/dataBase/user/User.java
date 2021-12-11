@@ -1,6 +1,5 @@
 package com.example.myaccount.dataBase.user;
 
-
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
