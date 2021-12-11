@@ -1,8 +1,0 @@
-<?xml version ="1.0" encoding ="utf-8"?><!--  Learn More about how to use App Actions: https://developer.android.com/guide/actions/index.html -->
-<litepal>
-    <dbname value="myaccount"/>
-    <version value="1"/>
-    <list>
-        <mapping class="com.example.myaccount.dataBase.litepal.Account"/>
-    </list>
-</litepal>
