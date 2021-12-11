@@ -1,8 +1,9 @@
-package com.example.myaccount;
+package com.example.myaccount.activity.logActivity;
 
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Looper;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -10,6 +11,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myaccount.MainActivity;
+import com.example.myaccount.R;
 import com.example.myaccount.dataBase.DataBase;
 import com.example.myaccount.dataBase.user.User;
 
@@ -23,7 +26,7 @@ public class LoginLow extends AppCompatActivity {
     private Button loginButton;
     private TextView createText;
     public User user;
-    private boolean flag = false;
+    public List<User>users;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +44,6 @@ public class LoginLow extends AppCompatActivity {
             }
             else{
                 new getUser(usernameInput.getText().toString(),passwordInput.getText().toString()).execute();
-                if(flag){
-
-                }
-                else{
-                    Toast.makeText(this,"用户名或密码错误",Toast.LENGTH_SHORT).show();
-                }
             }
         });
 
@@ -66,14 +63,17 @@ public class LoginLow extends AppCompatActivity {
         }
         @Override
         protected Void doInBackground(Void... voids) {
-            List<User>u =  accountDataBase.getUserDao().getUser(username,password);
-            if(u.isEmpty())flag=false;
-            else{
-                flag = true;
-                user = u.get(0);
-                Intent intent = new Intent(LoginLow.this,MainActivity.class);
+            users =  accountDataBase.getUserDao().getUser(username,password);
+            if(!users.isEmpty()){
+                user = users.get(0);
+                Intent intent = new Intent(LoginLow.this, MainActivity.class);
                 intent.putExtra("user", user);
                 startActivity(intent);
+            }
+            else{
+                Looper.prepare();
+                Toast.makeText(getApplicationContext(), "用户名或密码错误", Toast.LENGTH_SHORT).show();
+                Looper.loop();
             }
             return null;
         }

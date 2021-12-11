@@ -1,4 +1,4 @@
-package com.example.myaccount;
+package com.example.myaccount.activity.logActivity;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myaccount.R;
 import com.example.myaccount.dataBase.DataBase;
 import com.example.myaccount.dataBase.user.User;
 
