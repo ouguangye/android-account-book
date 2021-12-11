@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.cardview.widget.CardView;
 import androidx.room.Room;
 
 import com.example.myaccount.AppContext;
@@ -37,7 +38,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class BarCard extends LinearLayout{
+public class BarCard extends CardView {
     private TextView barTitle;
     private ImageView barOption;
     private BarChart barChart;
