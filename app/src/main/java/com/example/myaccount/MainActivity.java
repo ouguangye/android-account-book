@@ -73,9 +73,6 @@ public class MainActivity extends AppCompatActivity {
 
         //创建数据库
         accountDataBase = AccountDataBase.getInstance(this);
-
-        //操作碎片
-        homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
     }
 
     //右上角三个点的设置。这里取消了原有的bar,所以此处代码没有用

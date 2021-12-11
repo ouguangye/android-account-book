@@ -1,5 +1,6 @@
 package com.example.myaccount.ui.cards;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
@@ -9,16 +10,19 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.room.Room;
 
+import com.example.myaccount.AppContext;
 import com.example.myaccount.R;
 import com.example.myaccount.dataBase.Account;
 import com.example.myaccount.dataBase.AccountDao;
 import com.example.myaccount.dataBase.AccountDataBase;
+import com.example.myaccount.util.FifteenXAxisFormatter;
 import com.example.myaccount.util.WeekXAxisFormatter;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Description;
@@ -61,21 +65,27 @@ public class BarCard extends LinearLayout{
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
 //        xAxis.setLabelRotationAngle(90);
         xAxis.setTextColor(Color.GRAY);
+        xAxis.setGranularity(1);
     }
 
     private int calNumOfDays(Date date) throws Exception{
-        SimpleDateFormat staF = new SimpleDateFormat("1900-01-01");
-        Date sta = staF.parse("1900-01-01");
         date.setHours(0);
         date.setMinutes(0);
         date.setSeconds(0);
-        return (int)((date.getTime()-sta.getTime())/(24*3600*1000));
+        SimpleDateFormat staF = new SimpleDateFormat("yyyy-MM-dd");
+        Date sta = staF.parse("1900-01-01");
+        String format = staF.format(date);
+        System.out.println(format);
+        Date help = staF.parse(format);
+
+        return (int)((help.getTime()-sta.getTime())/(24*3600*1000));
     }
 
     public void refreshBarChart(int choice, Account[] accounts7, Account[] accounts15, int numOfDays) {
         this.setVisibility(View.VISIBLE);
         barChart.clear();
         XAxis xAxis = barChart.getXAxis();
+//        xAxis.set
         BarData barData;
         BarDataSet barDataSet;
         if (accounts7.length == 0){
@@ -93,52 +103,40 @@ public class BarCard extends LinearLayout{
         switch (choice) {
             case 0:
                 for (int i = 0; i < 7; ++i) {
-                    Log.i("!!","aaa");
                     float avg = 0;
-                    int size = 0;
+                    System.out.println(String.valueOf(i) + ": ");
                     for (Account acc : accounts7){
-                        Log.i("!!","abb");
-
-//                        if (acc.getDays() > numOfDays-6+i)
-//                            break;
-//                        if (acc.getDays() < numOfDays-6+i)
-//                            continue;
-                        if (acc.getSign() == 0) {avg += acc.getAmount();Log.d("!!!!!!", String.valueOf(acc.getAmount())); size++;}
+                        System.out.println("getDay: " + String.valueOf(acc.getDays()));
+                        System.out.println("today: "+ String.valueOf(numOfDays-6+i));
+                        if (acc.getDays() == numOfDays-6+i){
+                        if (acc.getSign() == 0) {avg += acc.getAmount();}}
                     }
-//                    avg /= size;
                     out7[i] = avg;
-                    outBarEntries.add(new BarEntry(x7[i], out7[i]));
-                    System.out.println(accounts7[0].getAmount());
+                    if(avg>0)outBarEntries.add(new BarEntry(x7[i], out7[i]));
                 }
                 xAxis.setValueFormatter(new WeekXAxisFormatter());
                 barDataSet = new BarDataSet(outBarEntries, "outcome");
-//                barDataSet.setColor(R.color.red);
+                barDataSet.setColor(R.color.red);
                 barData = new BarData(barDataSet);
                 barChart.setData(barData);
-                barData.setBarWidth(0.9f);
-                barChart.setFitBars(true);
+                barData.setBarWidth(0.3f);
+                barChart.setFitBars(false);
                 barChart.invalidate();
                 break;
             case 1:
                 for (int i = 0; i < 7; ++i) {
                     float out = 0;
-                    int sOut = 0;
                     float in = 0;
-                    int sIn = 0;
                     for (Account acc : accounts7){
-                        if (acc.getDays() > numOfDays-6+i)
-                            break;
-                        if (acc.getDays() < numOfDays-6+i)
-                            continue;
-                        if (acc.getSign() == 0) {out += acc.getAmount(); sOut++;}
-                        else {in += acc.getAmount(); sIn++;}
+                        if (acc.getDays() == numOfDays-6+i){
+                        if (acc.getSign() == 0) {out += acc.getAmount();}
+                        else {in += acc.getAmount();}
+                        }
                     }
-                    out /= sOut;
-                    in /= sIn;
                     out7[i] = out;
                     in7[i] = in;
-                    outBarEntries.add(new BarEntry(x7[i], out7[i]));
-                    inBarEntries.add(new BarEntry(x7[i], in7[i]));
+                    if(out > 0)outBarEntries.add(new BarEntry(x7[i], out7[i]));
+                    if(in > 0)inBarEntries.add(new BarEntry(x7[i], in7[i]));
                 }
                 xAxis.setValueFormatter(new WeekXAxisFormatter());
                 BarDataSet outSet = new BarDataSet(outBarEntries, "outcome");
@@ -150,65 +148,52 @@ public class BarCard extends LinearLayout{
                 dataSets.add(inSet);
                 barData = new BarData(dataSets);
                 barChart.setData(barData);
-                barData.setBarWidth(0.9f);
-                barChart.setFitBars(true);
+                barData.setBarWidth(0.3f);
+                barChart.setFitBars(false);
                 barChart.invalidate();
                 break;
             case 2:
 //                ArrayList<String> datStrs = new ArrayList<String>();
                 for (int i = 0; i < 15; ++i) {
                     float avg = 0;
-                    int size = 0;
                     for (Account acc : accounts15){
-//                        String datStr = acc.getDate();
-//                        if (!datStrs.contains(datStr))
-//                            datStrs.add(datStr);
-                        if (acc.getDays() > numOfDays-14+i)
-                            break;
-                        if (acc.getDays() < numOfDays-14+i)
-                            continue;
-                        if (acc.getSign() == 0) {avg += acc.getAmount(); size++;}
+                        if (acc.getDays() == numOfDays-14+i) {
+                            if (acc.getSign() == 0) {
+                                avg += acc.getAmount();
+                            }
+                        }
                     }
                     x15[i] = i;
-                    avg /= size;
                     out15[i] = avg;
-                    outBarEntries.add(new BarEntry(x15[i], out15[i]));
+                    if(avg>0)outBarEntries.add(new BarEntry(x15[i], out15[i]));
                 }
+                xAxis.setValueFormatter(new FifteenXAxisFormatter());
                 barDataSet = new BarDataSet(outBarEntries, "outcome");
                 barDataSet.setColor(R.color.red);
                 barData = new BarData(barDataSet);
                 barChart.setData(barData);
-                barData.setBarWidth(0.9f);
-                barChart.setFitBars(true);
+                barData.setBarWidth(0.2f);
+                barChart.setFitBars(false);
                 barChart.invalidate();
                 break;
             case 3:
 //                ArrayList<String> datStrss = new ArrayList<String>();
                 for (int i = 0; i < 15; ++i) {
                     float out = 0;
-                    int sOut = 0;
                     float in = 0;
-                    int sIn = 0;
                     for (Account acc : accounts15){
-//                        String datStr = acc.getDate();
-//                        if (!datStrss.contains(datStr))
-//                            datStrss.add(datStr);
-                        if (acc.getDays() > numOfDays-14+i)
-                            break;
-                        if (acc.getDays() < numOfDays-14+i)
-                            continue;
-                        if (acc.getSign() == 0) {out += acc.getAmount(); sOut++;}
-                        else {in += acc.getAmount(); sIn++;}
+                        if (acc.getDays() == numOfDays-14+i){
+                        if (acc.getSign() == 0) {out += acc.getAmount();}
+                        else {in += acc.getAmount();}
+                        }
                     }
                     x15[i] = i;
-                    out /= sOut;
-                    in /= sIn;
                     out15[i] = out;
                     in15[i] = in;
-                    outBarEntries.add(new BarEntry(x15[i], out15[i]));
-                    inBarEntries.add(new BarEntry(x15[i], in15[i]));
+                    if(out>0)outBarEntries.add(new BarEntry(x15[i], out15[i]));
+                    if(in>0)inBarEntries.add(new BarEntry(x15[i], in15[i]));
                 }
-                xAxis.setValueFormatter(new WeekXAxisFormatter());
+                xAxis.setValueFormatter(new FifteenXAxisFormatter());
                 BarDataSet outSet15 = new BarDataSet(outBarEntries, "outcome");
                 outSet15.setColor(R.color.red);
                 BarDataSet inSet15 = new BarDataSet(inBarEntries, "income");
@@ -218,8 +203,8 @@ public class BarCard extends LinearLayout{
                 dataSets15.add(inSet15);
                 barData = new BarData(dataSets15);
                 barChart.setData(barData);
-                barData.setBarWidth(0.9f);
-                barChart.setFitBars(true);
+                barData.setBarWidth(0.2f);
+                barChart.setFitBars(false);
                 barChart.invalidate();
                 break;
             default:
@@ -254,6 +239,11 @@ public class BarCard extends LinearLayout{
         contentView.setLayoutParams(layoutParams);
         bottomDialog.getWindow().setGravity(Gravity.BOTTOM);
         bottomDialog.getWindow().setWindowAnimations(R.style.BottomDialog_Animation);
+        WindowManager.LayoutParams lp = bottomDialog.getWindow().getAttributes();
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        lp.dimAmount = 0.6f;
+        bottomDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        bottomDialog.setTitle(R.string.title_bottom_dialog);
         TextView sevenOutcome = bottomDialog.findViewById(R.id.seven_outcome);
         TextView sevenIncome = bottomDialog.findViewById(R.id.seven_income_and_outcome);
         TextView fifteenOutcome = bottomDialog.findViewById(R.id.fifteen_outcome);
@@ -308,7 +298,7 @@ public class BarCard extends LinearLayout{
     }
 
     public void refresh(){
-        db = Room.inMemoryDatabaseBuilder(getContext(), AccountDataBase.class).build();
+        db = AccountDataBase.getInstance(AppContext.getContext());
         QueryLastDayTask task = new QueryLastDayTask(db,numOfDays);
         task.execute();
     }
@@ -328,11 +318,12 @@ public class BarCard extends LinearLayout{
         } catch (Exception e) {
             e.printStackTrace();
         }
-        db = Room.inMemoryDatabaseBuilder(context, AccountDataBase.class).build();
+        db = AccountDataBase.getInstance(context);
         QueryLastDayTask task = new QueryLastDayTask(db, numOfDays);
         task.execute();
     }
 
+    @SuppressLint("StaticFieldLeak")
     private class QueryLastDayTask extends AsyncTask<Void, Void, Void>{
 
         private AccountDataBase accountDataBase;
@@ -346,7 +337,6 @@ public class BarCard extends LinearLayout{
 
         public void queryAccountLastDays() {
             accounts7 = accountDao.queryAll();
-            System.out.println(accounts7.length);
             accounts15 = accountDao.queryLastDays(numOfDay-15);
         }
 
@@ -357,20 +347,12 @@ public class BarCard extends LinearLayout{
             if (numOfDay > 0) {
                 queryAccountLastDays();
             }
-            accountDataBase.close();
-            publishProgress();
             return null;
         }
 
         @Override
-        protected void onProgressUpdate(Void... avoid){
-            refreshBarChart(0, accounts7, accounts15, numOfDays);
-            super.onProgressUpdate(avoid);
-        }
-
-        @Override
         protected void onPostExecute(Void aVoid){
-            super.onPostExecute(aVoid);
+            refreshBarChart(0, accounts7, accounts15, numOfDays);
         }
     }
 }

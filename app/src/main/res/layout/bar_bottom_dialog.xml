@@ -4,28 +4,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bar_dialog_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_margin="20dp"
+    android:background="@drawable/bg_bottom_dialog">
+
 
     <TextView
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="20dp"
         android:id="@+id/seven_outcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="最近7天支出"/>
     <TextView
+        android:layout_marginStart="20dp"
         android:id="@+id/seven_income_and_outcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:text="最近7天收入和支出"/>
     <TextView
+        android:layout_marginStart="20dp"
         android:id="@+id/fifteen_outcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:text="最近15天支出"/>
     <TextView
+        android:layout_marginStart="20dp"
         android:id="@+id/fifteen_income_and_outcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="40dp"
         android:text="最近15天收入和支出"/>
 
 </LinearLayout>

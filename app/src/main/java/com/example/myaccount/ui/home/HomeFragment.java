@@ -32,7 +32,7 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         test = binding.testss;
-        accountDataBase = Room.inMemoryDatabaseBuilder(getContext(), AccountDataBase.class).allowMainThreadQueries().build();
+        accountDataBase = Room.inMemoryDatabaseBuilder(getContext(), AccountDataBase.class).build();
         homeViewModel.getContext().observe(getViewLifecycleOwner(), new Observer<Context>() {
             @Override
             public void onChanged(Context context) {

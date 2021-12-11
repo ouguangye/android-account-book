@@ -198,12 +198,16 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
 
     //计算天数值（从1900年1月1日开始）
     private int calNumOfDays(Date date) throws Exception{
-        SimpleDateFormat staF = new SimpleDateFormat("yyyy-mm-dd");
-        Date sta = staF.parse("1900-01-01");
         date.setHours(0);
         date.setMinutes(0);
         date.setSeconds(0);
-        return (int)((date.getTime()-sta.getTime())/(24*3600*1000));
+        SimpleDateFormat staF = new SimpleDateFormat("yyyy-MM-dd");
+        Date sta = staF.parse("1900-01-01");
+        String format = staF.format(date);
+        System.out.println(format);
+        Date help = staF.parse(format);
+
+        return (int)((help.getTime()-sta.getTime())/(24*3600*1000));
     }
 
     //初始化数据
@@ -214,7 +218,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         mDay = Integer.parseInt(DateUtils.getCurDay(FORMAT_D));
         //设置当前 日期
         days = DateUtils.getCurDateStr("yyyy-MM-dd");
-        SimpleDateFormat sdf = new SimpleDateFormat(days);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date calHelp = sdf.parse(days);
         numOfDays = calNumOfDays(calHelp);
         bundle = getIntent().getBundleExtra("bundle");
@@ -400,7 +404,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
 
             }
             dateTv.setText(days);
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             Date calHelp = null;
             try {
                 calHelp = sdf.parse(days);
@@ -408,6 +412,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
                 e.printStackTrace();
             }
             try {
+                System.out.println("asdfsadfadsfadsfdasfads"+calHelp.toString());
                 numOfDays = calNumOfDays(calHelp);
             } catch (Exception e) {
                 e.printStackTrace();
