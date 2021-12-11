@@ -21,6 +21,11 @@ public class User {
         return sid;
     }
 
+    public User(String name, String password) {
+        this.name = name;
+        this.password = password;
+    }
+
     public void setSid(int sid) {
         this.sid = sid;
     }

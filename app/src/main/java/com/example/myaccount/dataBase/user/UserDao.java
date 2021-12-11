@@ -5,6 +5,8 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 
+import java.util.List;
+
 @Dao
 public interface UserDao {
 
@@ -14,8 +16,8 @@ public interface UserDao {
 
 
     //获得密码
-    @Query("SELECT * FROM user WHERE username = :name")
-    public User getPassword(String name);
+    @Query("SELECT * FROM user WHERE username = :name AND password = :password")
+    public List<User> getUser(String name, String password);
 
 
 }
