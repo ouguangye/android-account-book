@@ -126,6 +126,10 @@ public class MainActivity extends AppCompatActivity {
         homeViewModel.getContext().observe(this, contextObserver);
     }
 
+    public void runTask(){
+        new FindMonthDataTask().execute();
+    }
+
     private class FindMonthDataTask extends AsyncTask<Void, Void, Void>{
 
         private AccountDao accountDao;
