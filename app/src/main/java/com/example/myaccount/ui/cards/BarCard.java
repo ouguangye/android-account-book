@@ -36,7 +36,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class BarCard extends LinearLayout {
+public class BarCard extends Card {
     private TextView barTitle;
     private ImageView barOption;
     private BarChart barChart;

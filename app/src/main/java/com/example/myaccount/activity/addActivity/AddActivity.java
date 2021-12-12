@@ -46,12 +46,12 @@ import java.util.Date;
 
 public class AddActivity extends AppCompatActivity implements View.OnClickListener, AccountRVFragment.SendDataToActivity {
     //使用Dao访问数据库
-    private AccountDao accountDao;
     private TabLayout tabLayout;//标题栏
     private ViewPager2 viewPager2;
     private ImageView BackToMain;
 
-    //用户id
+    //用户信息与id
+    private User user;
     private int uid;
 
     //标题栏点击触发前和触发后的状态
@@ -454,6 +454,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
         switch (view.getId()) {
             case R.id.back_to_main:
                 Intent intent = new Intent(AddActivity.this, MainActivity.class);
+                intent.putExtra("user", user);
                 startActivity(intent);
                 break;
             case R.id.tb_note_date://日期
@@ -535,7 +536,7 @@ public class AddActivity extends AppCompatActivity implements View.OnClickListen
 
         //得到用户id
         Intent intent1 = getIntent();
-        User user = intent1.getParcelableExtra("user");
+        user = intent1.getParcelableExtra("user");
         uid = user.getSid();
         Log.d("uid",String.valueOf(uid));
 
