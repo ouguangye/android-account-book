@@ -11,6 +11,9 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.lifecycle.Observer;
+
+import com.example.myaccount.MainActivity;
 import com.example.myaccount.R;
 import com.example.myaccount.dataBase.DataBase;
 import com.example.myaccount.dataBase.account.Account;
@@ -30,6 +33,8 @@ public class DataCard extends Card {
     private int numOfDays = 0;
     private List<DisplayElement> elementList = new ArrayList<>();
     ListView listView;
+    private MainActivity mainActivity;
+    private BarCard barCard;
     Query query;
     User user;
 
@@ -155,10 +160,12 @@ public class DataCard extends Card {
         resetListView();
     }
 
-    public DataCard(Context context, User user) {
+    public DataCard(Context context, User user, MainActivity mainActivity, BarCard barCard) {
         super(context);
         this.context = context;
         this.user = user;
+        this.mainActivity = mainActivity;
+        this.barCard = barCard;
         LayoutInflater.from(context).inflate(R.layout.data_listview, this);
         db = DataBase.getInstance(context);
         listView = (ListView) findViewById(R.id.list_view);
@@ -204,7 +211,14 @@ public class DataCard extends Card {
 
         @Override
         protected void onPostExecute(Void avoid) {
-            resetListView();
+            accountDao.queryIds(user.getSid()).observeForever(new Observer<int[]>() {
+                @Override
+                public void onChanged(int[] ints) {
+                    resetListView();
+                    mainActivity.runTask();
+                    barCard.refresh();
+                }
+            });
             return;
         }
     }
@@ -271,7 +285,8 @@ public class DataCard extends Card {
                     DeleteTask deleteTask = new DeleteTask(db, element.getSid());
                     deleteTask.execute();
                     query = new Query(db, numOfDays);
-                    query.execute();                }
+                    query.execute();
+                }
             });
             return view;
         }

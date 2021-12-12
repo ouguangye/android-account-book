@@ -40,7 +40,7 @@ public class HomeFragment extends Fragment {
         MainActivity mainActivity = (MainActivity) getActivity();
         user = mainActivity.getUser();
         int[] dddd = homeViewModel.getIds(accountDataBase, user).getValue();
-        homeViewModel.getIds(accountDataBase, user).observe(getViewLifecycleOwner(), new Observer<int[]>() {
+        homeViewModel.getIds(accountDataBase, user).observeForever(new Observer<int[]>() {
             @Override
             public void onChanged(int[] ints) {
                 card2.refresh();
@@ -49,7 +49,7 @@ public class HomeFragment extends Fragment {
         });
         card = new BarCard(getContext(), user);
         test.addView(card);
-        card2 = new DataCard(getContext(),user);
+        card2 = new DataCard(getContext(),user,mainActivity,card);
         test.addView(card2);
         return root;
     }
