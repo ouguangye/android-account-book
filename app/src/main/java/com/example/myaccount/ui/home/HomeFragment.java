@@ -46,6 +46,7 @@ public class HomeFragment extends Fragment {
         homeViewModel.getIds(accountDataBase).observe(getViewLifecycleOwner(), new Observer<int[]>() {
             @Override
             public void onChanged(int[] ints) {
+                card2.refresh();
                 card.refresh();
             }
         });

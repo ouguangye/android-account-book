@@ -26,4 +26,7 @@ public interface AccountDao {
 
     @Query("SELECT * FROM account WHERE date LIKE :month")
     public Account[] queryMonth(String month);
+
+    @Query("DELETE FROM account WHERE sid = :Sid")
+    public void deleteBySid(long Sid);
 }

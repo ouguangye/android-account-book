@@ -5,10 +5,12 @@ public class DisplayElement {
     // value大于0表示income， value小于0表示outcome
     private double value;
     private int graphId;
-    public DisplayElement(String type, double value, int graphId) {
+    private int sid;
+    public DisplayElement(String type, double value, int graphId, int sid) {
         this.type = type;
         this.value = value;
         this.graphId = graphId;
+        this.sid = sid;
 
     }
     public String getType() {
@@ -19,5 +21,8 @@ public class DisplayElement {
     }
     public  int getGraphId() {
         return graphId;
+    }
+    public int getSid() {
+        return this.sid;
     }
 }

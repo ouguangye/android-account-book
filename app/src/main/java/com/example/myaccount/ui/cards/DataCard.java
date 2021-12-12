@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -22,12 +23,13 @@ import java.util.List;
 
 public class DataCard extends Card {
     private DataBase db;
-    private Account account;
+    //private Account account;
     private Context context;
     Account[] accounts7;
     private int numOfDays = 0;
     private List<DisplayElement> elementList = new ArrayList<>();
     ListView listView;
+    Query query;
 
     private int calNumOfDays(Date date) throws Exception {
         date.setHours(0);
@@ -86,6 +88,52 @@ public class DataCard extends Card {
         return R.mipmap.canyin_blue;
     }
 
+    private String getChinese(String str) {
+        switch (str) {
+            case "canyin":
+                return "餐饮";
+            case "chongwu":
+                return "宠物";
+            case "dianqi":
+                return "电器";
+            case "haizi":
+                return "孩子";
+            case "hongbao":
+                return "红包";
+            case "huafei":
+                return "话费";
+            case "huazhuang":
+                return "化妆";
+            case "jiaotong":
+                return "交通";
+            case "lingshi":
+                return "粮食";
+            case "lvyou":
+                return "旅游";
+            case "shuidian":
+                return "水电";
+            case "zhufang":
+                return "住房";
+            case "xuexi":
+                return "学习";
+            case "riyongpin":
+                return "日用品";
+            case "qita":
+                return "其他";
+            case "gongzi":
+                return "工资";
+            case "gupiao":
+                return "股票";
+            case "jianzhi":
+                return "兼职";
+            case "shenghuofei":
+                return "生活费";
+
+        }
+        return "餐饮";
+    }
+
+
     private void resetListView() {
         this.setVisibility(View.VISIBLE);
         if(accounts7.length == 0) {
@@ -94,7 +142,7 @@ public class DataCard extends Card {
         }
         elementList.clear();
         for(Account acc: accounts7) {
-            DisplayElement ele = new DisplayElement(acc.getType(), acc.getAmount(), getResourceId(acc.getType()));
+            DisplayElement ele = new DisplayElement( getChinese(acc.getType()), acc.getAmount(), getResourceId(acc.getType()), acc.getSid());
             elementList.add(ele);
         }
         ElementAdapter adapter = new ElementAdapter(context, R.layout.data_card, elementList);
@@ -116,9 +164,15 @@ public class DataCard extends Card {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Query query = new Query(db, numOfDays);
+        query = new Query(db, numOfDays);
         query.execute();
-        //initDatas();
+        //initDa
+    }
+
+    public void refresh() {
+        db = DataBase.getInstance(context);
+        query = new Query(db, numOfDays);
+        query.execute();
     }
 
     // 内部类 用于异步访问数据库
@@ -152,6 +206,32 @@ public class DataCard extends Card {
         }
     }
 
+    private class DeleteTask extends AsyncTask<Void, Void, Void> {
+        private DataBase accountDataBase;
+        private AccountDao accountDao;
+        private int sid;
+
+        public DeleteTask(DataBase accountDataBase, int sid) {
+            this.accountDataBase = accountDataBase;
+            this.sid = sid;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            if(accountDataBase != null) {
+                accountDao = accountDataBase.getAccountDao();
+                accountDao.deleteBySid((long) this.sid);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void avoid) {
+            //resetListView();
+            return;
+        }
+    }
+
     private class ElementAdapter extends ArrayAdapter<DisplayElement> {
         private int resourceId;
 
@@ -173,10 +253,18 @@ public class DataCard extends Card {
             ImageView elementImage = (ImageView) view.findViewById(R.id.data_image);
             TextView elementName = (TextView) view.findViewById(R.id.data_name);
             TextView elementValue = (TextView) view.findViewById(R.id.data_value);
-
             elementImage.setImageResource(element.getGraphId());
             elementName.setText(element.getType());
             elementValue.setText(convertValue(element.getValue()));
+            Button btn = (Button) view.findViewById(R.id.data_btn);
+            btn.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    DeleteTask deleteTask = new DeleteTask(db, element.getSid());
+                    deleteTask.execute();
+                    query = new Query(db, numOfDays);
+                    query.execute();                }
+            });
             return view;
         }
     }
