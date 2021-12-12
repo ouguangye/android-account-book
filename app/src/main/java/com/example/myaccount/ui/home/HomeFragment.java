@@ -18,6 +18,7 @@ import com.example.myaccount.AppContext;
 import com.example.myaccount.dataBase.DataBase;
 import com.example.myaccount.databinding.FragmentHomeBinding;
 import com.example.myaccount.ui.cards.BarCard;
+import com.example.myaccount.ui.cards.DataCard;
 
 public class HomeFragment extends Fragment {
     private HomeViewModel homeViewModel;
@@ -25,6 +26,7 @@ public class HomeFragment extends Fragment {
     private LinearLayout test;
     private BarCard card;
     private DataBase accountDataBase;
+    private DataCard card2;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -48,7 +50,9 @@ public class HomeFragment extends Fragment {
             }
         });
         card = new BarCard(getContext());
+        card2 = new DataCard(getContext());
         test.addView(card);
+        test.addView(card2);
         return root;
     }
 
