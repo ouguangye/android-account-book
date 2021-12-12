@@ -15,7 +15,7 @@
         <item name="android:actionOverflowButtonStyle">@style/OverflowStyle</item>
     </style>
 
-    <style name="OverflowStyle"/>
+    <style name="OverflowStyle" />
 
     <style name="Theme.MyAccount.NoActionBar">
         <item name="windowActionBar">false</item>

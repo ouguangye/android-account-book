@@ -2,16 +2,17 @@ package com.example.myaccount;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -20,6 +21,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.myaccount.activity.CalendarActivity;
 import com.example.myaccount.activity.addActivity.AddActivity;
 import com.example.myaccount.dataBase.DataBase;
+import com.example.myaccount.dataBase.account.AccountDao;
 import com.example.myaccount.dataBase.user.User;
 import com.example.myaccount.databinding.ActivityMainBinding;
 import com.example.myaccount.ui.home.HomeViewModel;
@@ -40,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        com.example.myaccount.databinding.ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
+        ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.appBarMain.toolbar);
         binding.appBarMain.fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -72,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
         ImageView calendar = this.findViewById(R.id.calendar);
         calendar.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, CalendarActivity.class);
+            intent.putExtra("user", user);
             startActivity(intent);
         });
 
@@ -87,8 +90,10 @@ public class MainActivity extends AppCompatActivity {
         //创建数据库
         accountDataBase = DataBase.getInstance(this);
 
+        new FindMonthDataTask().execute();
+
         //操作碎片
-        homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
+//        homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
     }
 
     //右上角三个点的设置。这里取消了原有的bar,所以此处代码没有用
@@ -106,6 +111,10 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+    
+    public User getUser(){
+        return user;
+    }
 
     private void add(){
         final Observer<Context> contextObserver = new Observer<Context>() {
@@ -115,6 +124,63 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         homeViewModel.getContext().observe(this, contextObserver);
+    }
+
+    private class FindMonthDataTask extends AsyncTask<Void, Void, Void>{
+
+        private AccountDao accountDao;
+        private Float[] income;
+        private Float[] outcome;
+        private float disOut = 0;
+        private float disIn = 0;
+        private float diff = 0;
+        String mon;
+
+        public FindMonthDataTask(){
+            accountDao = accountDataBase.getAccountDao();
+            Calendar cal = Calendar.getInstance();
+            int month = cal.get(Calendar.MONTH) + 1;
+            int year = cal.get(Calendar.YEAR);
+            mon = year+"-"+month+'%';
+            System.out.println("NOW    " + mon);
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            income = accountDao.queryIncomeMonth(mon, user.getSid());
+            outcome = accountDao.queryOutcomeMonth(mon, user.getSid());
+            if (income != null){
+                if (income.length > 0){
+                    System.out.println("INCOME");
+                    for (Float var : income){
+                        disIn += var;
+                    }
+                }
+            }
+            if (outcome != null){
+                System.out.println("OUTCOME");
+                if (outcome.length > 0){
+                    for (Float var : outcome){
+                        disOut += var;
+                        System.out.println(disOut);
+                    }
+                }
+            }
+            diff = disIn - disOut;
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid){
+            TextView out = (TextView) findViewById(R.id.month_outcome);
+            out.setText(String.valueOf(disOut));
+            TextView in = (TextView) findViewById(R.id.month_income);
+            String In = "月收入" + String.valueOf(disIn);
+            in.setText(In);
+            TextView dif = (TextView) findViewById(R.id.month_diff);
+            String difference = "月结余" + String.valueOf(diff);
+            dif.setText(difference);
+        }
     }
 
 }

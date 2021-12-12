@@ -15,6 +15,7 @@ import com.example.myaccount.R;
 import com.example.myaccount.dataBase.DataBase;
 import com.example.myaccount.dataBase.account.Account;
 import com.example.myaccount.dataBase.account.AccountDao;
+import com.example.myaccount.dataBase.user.User;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ public class DataCard extends Card {
     private List<DisplayElement> elementList = new ArrayList<>();
     ListView listView;
     Query query;
+    User user;
 
     private int calNumOfDays(Date date) throws Exception {
         date.setHours(0);
@@ -153,9 +155,10 @@ public class DataCard extends Card {
         resetListView();
     }
 
-    public DataCard(Context context) {
+    public DataCard(Context context, User user) {
         super(context);
         this.context = context;
+        this.user = user;
         LayoutInflater.from(context).inflate(R.layout.data_listview, this);
         db = DataBase.getInstance(context);
         listView = (ListView) findViewById(R.id.list_view);
@@ -187,7 +190,7 @@ public class DataCard extends Card {
         }
 
         private void queryData() {
-            accounts7 = accountDao.queryAll();
+            accounts7 = accountDao.queryAll(user.getSid());
         }
 
         @Override

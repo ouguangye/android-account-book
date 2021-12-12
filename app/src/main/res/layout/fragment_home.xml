@@ -13,17 +13,21 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:id="@+id/testss"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/grey_little"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/testss">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/scroll_home">
-    </ScrollView>
+    </LinearLayout>
+
+
+
+<!--    <ScrollView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:id="@+id/scroll_home">-->
+<!--    </ScrollView>-->
 
 </LinearLayout>

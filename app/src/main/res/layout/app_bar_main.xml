@@ -14,7 +14,7 @@
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/ctl_home_bar"
             android:layout_width="match_parent"
-            android:layout_height="256dp"
+            android:layout_height="236dp"
             app:contentScrim="@color/white"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
             app:scrimVisibleHeightTrigger="100dp"
@@ -42,8 +42,8 @@
                         android:id="@+id/tv_home_address"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="100dp"
                         android:gravity="center"
+                        android:layout_weight="5"
                         android:text="2021.11"
                         android:textColor="@color/white"
                         android:textSize="20sp"
@@ -58,14 +58,16 @@
                         android:id="@+id/calendar"
                         android:layout_width="23dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="45dp"
+                        android:layout_marginEnd="20dp"
                         android:clickable="true"
                         android:src="@drawable/calendar" />
+
                     <ImageView
+                        android:id="@+id/statistics"
                         android:layout_width="23dp"
                         android:layout_height="wrap_content"
                         android:clickable="true"
-                        android:layout_marginLeft="19dp"
+                        android:layout_marginEnd="20dp"
                         android:src="@drawable/statistics_white"
                         />
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -86,9 +88,9 @@
                     android:textSize="24sp" />
 
                 <TextView
+                    android:id="@+id/month_outcome"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="16.00"
                     android:textColor="@color/white"
                     android:textSize="34sp"
                     android:textStyle="bold" />
@@ -100,17 +102,17 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/month_income"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginRight="34dp"
-                        android:text="月收入0.00"
                         android:textColor="@color/white"
                         android:textSize="17sp" />
 
                     <TextView
+                        android:id="@+id/month_diff"
                         android:layout_width="153dp"
                         android:layout_height="match_parent"
-                        android:text="本月结余-16.00"
                         android:textColor="@color/white"
                         android:textSize="17sp" />
 
