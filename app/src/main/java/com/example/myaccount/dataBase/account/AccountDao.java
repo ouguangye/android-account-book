@@ -12,8 +12,8 @@ public interface AccountDao {
     @Insert
     public void insertAccount(Account account);
 
-    @Query("SELECT * FROM account")
-    public Account[] queryAll();
+    @Query("SELECT * FROM account WHERE uid = :uid")
+    public Account[] queryAll(int uid);
 
     @Query("SELECT sid FROM account WHERE uid = :uid")
     public LiveData<int[]> queryIds(int uid);
@@ -29,4 +29,8 @@ public interface AccountDao {
 
     @Query("SELECT amount FROM account WHERE date LIKE :month AND uid = :uid AND sign = 0")
     public Float[] queryOutcomeMonth(String month, int uid);
+
+    @Query("DELETE FROM account WHERE sid = :Sid")
+    public void deleteBySid(long Sid);
+
 }

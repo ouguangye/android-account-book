@@ -4,9 +4,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
-import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -17,15 +17,17 @@ import com.example.myaccount.dataBase.DataBase;
 import com.example.myaccount.dataBase.user.User;
 import com.example.myaccount.databinding.FragmentHomeBinding;
 import com.example.myaccount.ui.cards.BarCard;
+import com.example.myaccount.ui.cards.DataCard;
 
 public class HomeFragment extends Fragment {
     private HomeViewModel homeViewModel;
     private FragmentHomeBinding binding;
-    private NestedScrollView test;
+    private LinearLayout test;
     private BarCard card;
     private DataBase accountDataBase;
     private User user;
     private boolean added = false;
+    private DataCard card2;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -41,14 +43,14 @@ public class HomeFragment extends Fragment {
         homeViewModel.getIds(accountDataBase, user).observe(getViewLifecycleOwner(), new Observer<int[]>() {
             @Override
             public void onChanged(int[] ints) {
-                if (!added){
-                    card = new BarCard(getContext(), user);
-                    test.addView(card);
-                }
-                if (added)
-                    card.refresh();
-            }
+                card2.refresh();
+                card.refresh();
+        }
         });
+        card = new BarCard(getContext(), user);
+        test.addView(card);
+        card2 = new DataCard(getContext(),user);
+        test.addView(card2);
         return root;
     }
 
