@@ -252,7 +252,12 @@ public class DataCard extends Card {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             DisplayElement element = getItem(position);
-            View view = LayoutInflater.from(getContext()).inflate(resourceId, parent, false);
+            View view;
+            if (convertView == null) {
+            view = LayoutInflater.from(getContext()).inflate(resourceId, parent, false);
+            } else {
+                view = convertView;
+            }
             ImageView elementImage = (ImageView) view.findViewById(R.id.data_image);
             TextView elementName = (TextView) view.findViewById(R.id.data_name);
             TextView elementValue = (TextView) view.findViewById(R.id.data_value);
