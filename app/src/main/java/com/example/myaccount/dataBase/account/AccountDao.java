@@ -15,15 +15,15 @@ public interface AccountDao {
     @Query("SELECT * FROM account")
     public Account[] queryAll();
 
-    @Query("SELECT sid FROM account")
-    public LiveData<int[]> queryIds();
+    @Query("SELECT sid FROM account WHERE uid = :uid")
+    public LiveData<int[]> queryIds(int uid);
 
-    @Query("SELECT date FROM account")
-    public String queryDate();
+    @Query("SELECT date FROM account WHERE uid = :uid")
+    public String queryDate(int uid);
 
-    @Query("SELECT * FROM account WHERE days > :days")
-    public Account[] queryLastDays(int days);
+    @Query("SELECT * FROM account WHERE days > :days AND uid = :uid")
+    public Account[] queryLastDays(int days, int uid);
 
-    @Query("SELECT * FROM account WHERE date LIKE :month")
-    public Account[] queryMonth(String month);
+    @Query("SELECT * FROM account WHERE date LIKE :month AND uid = :uid")
+    public Account[] queryMonth(String month, int uid);
 }

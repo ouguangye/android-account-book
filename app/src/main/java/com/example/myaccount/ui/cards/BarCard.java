@@ -18,6 +18,7 @@ import androidx.cardview.widget.CardView;
 import androidx.room.Room;
 
 import com.example.myaccount.R;
+import com.example.myaccount.dataBase.user.User;
 import com.example.myaccount.util.FifteenXAxisFormatter;
 import com.example.myaccount.dataBase.account.Account;
 import com.example.myaccount.dataBase.account.AccountDao;
@@ -45,6 +46,7 @@ public class BarCard extends Card {
     private DataBase db;
     public Account[] accounts7;
     public Account[] accounts15;
+    private User user;
     private int numOfDays = 0;
 
 
@@ -81,16 +83,11 @@ public class BarCard extends Card {
     }
 
     public void refreshBarChart(int choice, Account[] accounts7, Account[] accounts15, int numOfDays) {
-        this.setVisibility(View.VISIBLE);
         barChart.clear();
         XAxis xAxis = barChart.getXAxis();
 //        xAxis.set
         BarData barData;
         BarDataSet barDataSet;
-        if (accounts7.length == 0){
-            this.setVisibility(View.GONE);
-            return;
-        }
         float[] x7 = {1, 2, 3, 4, 5, 6, 7};
         float[] out7 = new float[7];
         float[] in7 = new float[7];
@@ -296,6 +293,7 @@ public class BarCard extends Card {
         });
     }
 
+    @Override
     public void refresh(){
         db = DataBase.getInstance(context);
         QueryLastDayTask task = new QueryLastDayTask(db,numOfDays);
@@ -303,10 +301,11 @@ public class BarCard extends Card {
     }
 
 
-    public BarCard(Context context) {
+    public BarCard(Context context, User user) {
         super(context);
         this.context = context;
-        LayoutInflater.from(context).inflate(R.layout.barchart_card,this);
+        this.user = user;
+        LayoutInflater.from(context).inflate(R.layout.barchart_card, this);
         barTitle = (TextView) findViewById(R.id.bar_card_title);
         changeBarTitle(0);
         initBarChart();
@@ -335,8 +334,8 @@ public class BarCard extends Card {
         }
 
         public void queryAccountLastDays() {
-            accounts7 = accountDao.queryAll();
-            accounts15 = accountDao.queryLastDays(numOfDay-15);
+            accounts7 = accountDao.queryLastDays(numOfDays-7, user.getSid());
+            accounts15 = accountDao.queryLastDays(numOfDay-15, user.getSid());
         }
 
         @Override

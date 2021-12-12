@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        com.example.myaccount.databinding.ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
+        ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.appBarMain.toolbar);
         binding.appBarMain.fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         ImageView calendar = this.findViewById(R.id.calendar);
         calendar.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, CalendarActivity.class);
+            intent.putExtra("user", user);
             startActivity(intent);
         });
 
@@ -105,6 +106,10 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+    
+    public User getUser(){
+        return user;
     }
 
     private void add(){
